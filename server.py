@@ -25,7 +25,7 @@ def makeConnection():
 
 @socketio.on('identify', namespace ='/pokemonsearch')
 def on_identify(search):
-    print('identify ' + search)
+    print(search)
 
 @socketio.on('send', namespace='/pokemonsearch')
 def submit_search(search):
@@ -35,15 +35,14 @@ def submit_search(search):
     query = cursor.mogrify("SELECT * from pokemon where name = %s", (search,))
     cursor.execute(query)
     rows = cursor.fetchall()
-    print(query)
+    print("query " + query)
     print(rows)
     if not rows:
         print("test")
         query = cursor.mogrify("Select name, weight, height, male, female from pokemon p1, types t1 where p1.id = t1.poke_ID and t1.type_ID = (SELECT ID from PossibleTypes where nameoftype = %s);", (search,))
         cursor.execute(query)
         rows = cursor.fetchall()
-        print(query)
-
+        print("query" + query)
         print(rows)
         if not rows:
            print("There are no rows!")
@@ -144,7 +143,39 @@ def logout():
     
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    connection = connectToDB()
+    cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    try:
+        print('User: ' + session['username'])
+    except:
+        session['username'] = ''
+    # if user typed in a post ...
+    if request.method == 'POST':
+          username = request.form['userName']
+          print('incoming username ' + username)
+          pw = request.form['pw']
+          try: 
+            print(cursor.mogrify("select * from users where username = %s AND password = crypt(%s, password);", (username, pw)))
+            cursor.execute("select * from users WHERE username = %s AND password = crypt(%s, password);" , (username, pw))
+            if cursor.fetchone():
+              print("got here")
+              session['username'] = username
+              session['loggedIn']=True 
+            else:
+              session['loggedIn']=False
+              session['username']=''
+          except:
+            print("Error accesing from users table when logging in")
+            print(cursor.execute("select * from users WHERE username = %s AND password = crypt(%s, password);" , (username, pw)))
+    print('Username: ' + session['username'])
+    if session['username'] == '':
+        session['loggedIn'] = False
+        print("Nobody is currently logged in.") 
+    else:
+       session['loggedIn'] = True
+       print('User: ' + session['username'])
+
+    return render_template('about.html', loggedIn=session['loggedIn'], user=session['username'])
     
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -196,7 +227,7 @@ def register():
  
 
       
-    return render_template('register.html', selectedMenu='Register', users = results, user=user)
+    return render_template('register.html', selectedMenu='Register', users = results, loggedIn=session['loggedIn'], user=session['username'])
     
 # start the server
 if __name__ == '__main__':

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="pokesearch">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Pokesearch</title>
+    <!-- web-fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <!-- off-canvas -->
+    <link href="css/mobile-menu.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Style CSS -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="main-wrapper">
+
+        <!-- Page Preloader -->
+        <div id="preloader">
+            <div id="status">
+                <div class="status-mes"></div>
+            </div>
+        </div>
+
+        <div class="uc-mobile-menu-pusher">
+
+            <div class="content-wrapper">
+                <nav class="navbar m-menu navbar-default navbar-fixed-top">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+                            <a class="navbar-brand" href="index.html"><img src="img/pokesearch_n.png" alt=""></a>
+                        </div>
+
+                        <ul class="nav-cta hidden-xs">
+                            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle"><i
+                        class="fa fa-search"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div class="head-search" ng-controller = ng-controller="searchController">
+                                            <form method = 'POST' action = '/results'>
+                                                <!-- Input Group -->
+                                                <div class="input-group">
+                                                    <input name='search' type="text" ng-model="termToSearch" ng-change="setName()" class="form-control" placeholder="...">
+
+                                                    <span class="input-group-btn">
+			                                  <button type="submit" value="Send" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-disabled="!termToSearch">send</button>
+			                                </span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right main-nav">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/chat">Chat</a></li>
+                            <li class="dropdown m-menu-fw"><a href="/directory" data-toggle="dropdown" class="dropdown-toggle">Directory
+                                <span><i class="fa fa-angle-down"></i></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div class="m-menu-content">
+                                            <ul class="col-sm-3">
+                                                <li class="dropdown-header">Widget Haeder</li>
+                                                <li><a href="#">Awesome Features</a></li>
+                                                <li><a href="#">Clean Interface</a></li>
+                                                <li><a href="#">Available Possibilities</a></li>
+                                                <li><a href="#">Responsive Design</a></li>
+                                                <li><a href="#">Pixel Perfect Graphics</a></li>
+                                            </ul>
+                                            <ul class="col-sm-3">
+                                                <li class="dropdown-header">Widget Haeder</li>
+                                                <li><a href="#">Awesome Features</a></li>
+                                                <li><a href="#">Clean Interface</a></li>
+                                                <li><a href="#">Available Possibilities</a></li>
+                                                <li><a href="#">Responsive Design</a></li>
+                                                <li><a href="#">Pixel Perfect Graphics</a></li>
+                                            </ul>
+                                            <ul class="col-sm-3">
+                                                <li class="dropdown-header">Widget Haeder</li>
+                                                <li><a href="#">Awesome Features</a></li>
+                                                <li><a href="#">Clean Interface</a></li>
+                                                <li><a href="#">Available Possibilities</a></li>
+                                                <li><a href="#">Responsive Design</a></li>
+                                                <li><a href="#">Pixel Perfect Graphics</a></li>
+                                            </ul>
+                                            <ul class="col-sm-3">
+                                                <li class="dropdown-header">Widget Haeder</li>
+                                                <li><a href="#">Awesome Features</a></li>
+                                                <li><a href="#">Clean Interface</a></li>
+                                                <li><a href="#">Available Possibilities</a></li>
+                                                <li><a href="#">Responsive Design</a></li>
+                                                <li><a href="#">Pixel Perfect Graphics</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                                <li><a href="/register">Register</a></li>
+                                {% if loggedIn %}
+                                <li>
+                                    <h2>
+                                        <font color="white">User: {{user}}</font>
+                                    </h2>
+                                </li>
+                                <form method="post" action="/logout">
+                                <button id="Logout" name="Logout" class="btn btn-primary">Logout</button> 
+                                </form>
+                                {% else %}
+                                <li><button type="submit" name="Login" value="Send" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log In</button></li>
+                                {% endif %}
+                        </ul>
+                    </div>
+                    <!-- .navbar-collapse -->
+            </div>
+            <!-- .container -->
+            </nav>
+            <!-- .nav -->
+            <div id="content">
+                {% block content %} {% endblock %}
+            </div><!--close content-->
+            <section class="client-logo ptb-100">
+                <section class="section-title">
+                    <div class="container text-center">
+                        <h2></h2>
+                        <span class="bordered-icon"><i class="fa fa-circle-thin"></i></span>
+                    </div>
+                </section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
+                            <a href="#"><img src="img/blastoise.png" alt="Image"></a>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
+                            <a href="#"><img src="img/charizard.png" alt="Image"></a>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
+                            <a href="#"><img src="img/electabuzz.png" alt="Image"></a>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
+                            <a href="#"><img src="img/golduck.png" alt="Image"></a>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
+                            <a href="#"><img src="img/lapras.png" alt="Image"></a>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
+                            <a href="#"><img src="img/scyther.png" alt="Image"></a>
+                        </div>
+                    </div>
+                </div>
+                <!--end of .container -->
+            </section>
+            <!-- /.client-logo -->
+
+
+            <footer class="footer">
+
+                <!-- Footer Widget Section -->
+                <div class="footer-widget-section">
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-sm-4 footer-block">
+                                <div class="footer-widget widget_text">
+                                    <div class="footer-logo">
+                                        <a href="#"><img src="img/pokesearch_n.png" alt=""></a>
+                                    </div>
+                                    <p>Get the info you need on the Pokemon of your choice.</p>
+
+                                </div>
+                            </div>
+                            <!-- /.col-sm-4 -->
+
+                            <div class="col-sm-4 footer-block">
+                                <div class="footer-widget widget_text">
+                                    <h3>Important Information</h3>
+
+                                    <p>If you want to avoid battles stay out of the grassy areas. -A signpost in Viridian Forest.</p>
+                                </div>
+                            </div>
+                            <!-- /.col-sm-4 -->
+
+                            <div class="col-sm-4 footer-block last">
+                                <div class="footer-widget widget_text">
+                                    <h3>Contact Us Today</h3>
+                                    <address>
+                            Call Us 666 777 888 OR 111 222 333<br>
+                            Send an Email on <a href="mailto:#">contact@domain.com</a><br>
+                            Visit Us Route 115, Meteor Falls<br>
+                            Hoenn<br>
+                        </address>
+
+                                    <ul class="list-inline social-links">
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /.col-sm-4 -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.Footer Widget Section -->
+
+                <div class="copyright-section">
+                    <div class="container clearfix">
+                        <span class="copytext">&copy; X-CORPORATION. All rights reserved. | Design By: <a
+                    href="http://uicookies.com">uiCookies</a></span>
+
+                        <ul class="list-inline pull-right">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="#">Portfolio</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    <!-- .container -->
+                </div>
+                <!-- .copyright-section -->
+            </footer>
+            <!-- .footer -->
+
+        </div>
+        <!-- .content-wrapper -->
+    </div>
+    <!-- .offcanvas-pusher -->
+
+    <div class="uc-mobile-menu uc-mobile-menu-effect">
+        <button type="button" class="close" aria-hidden="true" data-toggle="offcanvas" id="uc-mobile-menu-close-btn">&times;</button>
+        <div>
+            <div>
+                <ul class="nav navbar-nav navbar-right main-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/chat">Chat</a></li>
+                    <li class="dropdown m-menu-fw"><a href="/directory" data-toggle="dropdown" class="dropdown-toggle">Directory
+                                <span><i class="fa fa-angle-down"></i></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="m-menu-content">
+                                    <ul class="col-sm-3">
+                                        <li class="dropdown-header">Widget Haeder</li>
+                                        <li><a href="#">Awesome Features</a></li>
+                                        <li><a href="#">Clean Interface</a></li>
+                                        <li><a href="#">Available Possibilities</a></li>
+                                        <li><a href="#">Responsive Design</a></li>
+                                        <li><a href="#">Pixel Perfect Graphics</a></li>
+                                    </ul>
+                                    <ul class="col-sm-3">
+                                        <li class="dropdown-header">Widget Haeder</li>
+                                        <li><a href="#">Awesome Features</a></li>
+                                        <li><a href="#">Clean Interface</a></li>
+                                        <li><a href="#">Available Possibilities</a></li>
+                                        <li><a href="#">Responsive Design</a></li>
+                                        <li><a href="#">Pixel Perfect Graphics</a></li>
+                                    </ul>
+                                    <ul class="col-sm-3">
+                                        <li class="dropdown-header">Widget Haeder</li>
+                                        <li><a href="#">Awesome Features</a></li>
+                                        <li><a href="#">Clean Interface</a></li>
+                                        <li><a href="#">Available Possibilities</a></li>
+                                        <li><a href="#">Responsive Design</a></li>
+                                        <li><a href="#">Pixel Perfect Graphics</a></li>
+                                    </ul>
+                                    <ul class="col-sm-3">
+                                        <li class="dropdown-header">Widget Haeder</li>
+                                        <li><a href="#">Awesome Features</a></li>
+                                        <li><a href="#">Clean Interface</a></li>
+                                        <li><a href="#">Available Possibilities</a></li>
+                                        <li><a href="#">Responsive Design</a></li>
+                                        <li><a href="#">Pixel Perfect Graphics</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="active"><a href="/register">Register</a></li>
+                    <li><button type="submit" value="Send" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- .uc-mobile-menu -->
+    </div>
+    <!-- #main-wrapper -->
+
+
+    <!-- Script -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="js/smoothscroll.js"></script>
+    <script src="js/mobile-menu.js"></script>
+    <script src="js/flexSlider/jquery.flexslider-min.js"></script>
+    <script src="js/scripts.js"></script>
+
+    <!--login modal-->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+
+            <!--Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h1 class="text-center">Login</h1>
+                </div>
+                <div class="modal-body">
+                    <form method="post" class="form col-md-12 center-block" action="/login">
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg" name="userName" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control input-lg" name="pw" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg btn-block">Sign In</button>
+                            <span class="pull-right"><a href="#"></a></span><span><a href="/register">Register</a></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

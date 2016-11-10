@@ -5,16 +5,14 @@ poke.controller('searchController', function($scope){
    + location.port + '/pokemonsearch') 
     
     
-    $scope.results = [];
-    $scope.name = '';
+    $scope.results = [{"name": "Clara", "weight": "50.0", "height": "48.1", "male" : "n", "female": "y"}];
     $scope.termToSearch = '';
     
     socket.on('results', function(res){
         console.log(res);
+        console.log($scope.results);
         $scope.results.push(res);
         $scope.$apply();
-        var elem = document.getElementById('searchPane');
-        elem.scrollTop = elem.scrollHeight;
     });
     
     $scope.send = function send(){
@@ -23,8 +21,8 @@ poke.controller('searchController', function($scope){
         $scope.termToSearch = '';
     };
     
-    $scope.setName = function setName(){
-      socket.emit('identify', $scope.name);  
+    $scope.setSearchTerm = function setSearchTerm(){
+      socket.emit('identify', $scope.termToSearch);  
         
     };
     

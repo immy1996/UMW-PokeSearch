@@ -27,8 +27,10 @@ def makeConnection():
 def on_identify(search):
     print(search)
 
-@socketio.on('send', namespace='/pokemonsearch')
+@socketio.on('send', namespace = '/pokemonsearch')
 def submit_search(search):
+    session['searchedString'] = search
+    session['resultsOfSearch'] = []
     connection = connectToDB()
     cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
     rows = []
@@ -47,13 +49,13 @@ def submit_search(search):
         if not rows:
            print("There are no rows!")
         else:
-            for row in rows:
-                print(row)
-                emit('results', {'name' : row['name'], 'weight' : str(row['weight']), 'height' : str(row['height']), 'male' : str(row['male']), 'female' : str(row['female'])})
+            session['resultsOfSearch'] = rows
+            print('in redirect')
+            return redirect(url_for('showResults'))
     else:
-        for row in rows:
-            print(row) 
-            emit('results', {'name' : row['name'], 'weight' : str(row['weight']), 'height' : str(row['height']), 'male' : str(row['male']), 'female' : str(row['female'])})
+        session['resultsOfSearch'] = rows
+        print('in redirect')
+        return redirect(url_for('showResults'))
     
 
 @app.route('/',  methods=['GET', 'POST'])
@@ -104,7 +106,7 @@ def mainIndex():
     except:
         print("Error executing select")
  
-    return render_template('index.html', pikachurows=pikachurows, ninerows=ninerows, squirtlerows=squirtlerows, magmarrows=magmarrows, loggedIn=session['loggedIn'], user=session['username'])
+    return render_template('home.html', pikachurows=pikachurows, ninerows=ninerows, squirtlerows=squirtlerows, magmarrows=magmarrows, loggedIn=session['loggedIn'], user=session['username'])
    
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -224,11 +226,41 @@ def register():
       user = [session['username']]
     else:
       user = ['']
- 
-
-      
     return render_template('register.html', selectedMenu='Register', users = results, loggedIn=session['loggedIn'], user=session['username'])
-    
+   
+@app.route('/results', methods=['GET', 'POST'])
+def showResults():
+    session['searchedString'] = request.form['search']
+    session['resultsOfSearch'] = []
+    connection = connectToDB()
+    cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    rows = []
+    query = cursor.mogrify("SELECT * from pokemon where name = %s", (session['searchedString'],))
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    print("query " + query)
+    print(rows)
+    if not rows:
+        print("test")
+        query = cursor.mogrify("Select name, weight, height, male, female from pokemon p1, types t1 where p1.id = t1.poke_ID and t1.type_ID = (SELECT ID from PossibleTypes where nameoftype = %s);", (session['searchedString'],))
+        cursor.execute(query)
+        rows = cursor.fetchall()
+        print("query" + query)
+        print(rows)
+        if not rows:
+           print("There are no rows!")
+        else:
+            session['resultsOfSearch'] = rows
+    else:
+        session['resultsOfSearch'] = rows
+    print("We are here")
+    print(session['resultsOfSearch'])
+    return render_template('searchResults.html', 
+                            loggedIn=session['loggedIn'], 
+                            user=session['username'], 
+                            resultsOfSearch = session['resultsOfSearch'],
+                            searchedString = session['searchedString'])
+
 # start the server
 if __name__ == '__main__':
     socketio.run(app, host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)

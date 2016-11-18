@@ -27,36 +27,37 @@ def makeConnection():
 def on_identify(search):
     print(search)
 
-@socketio.on('send', namespace = '/pokemonsearch')
-def submit_search(search):
-    session['searchedString'] = search
-    session['resultsOfSearch'] = []
-    connection = connectToDB()
-    cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    rows = []
-    query = cursor.mogrify("SELECT * from pokemon where name = %s", (search,))
-    cursor.execute(query)
-    rows = cursor.fetchall()
-    print("query " + query)
-    print(rows)
-    if not rows:
-        print("test")
-        query = cursor.mogrify("Select name, weight, height, male, female from pokemon p1, types t1 where p1.id = t1.poke_ID and t1.type_ID = (SELECT ID from PossibleTypes where nameoftype = %s);", (search,))
-        cursor.execute(query)
-        rows = cursor.fetchall()
-        print("query" + query)
-        print(rows)
-        if not rows:
-           print("There are no rows!")
-        else:
-            session['resultsOfSearch'] = rows
-            print('in redirect')
-            return redirect(url_for('showResults'))
-    else:
-        session['resultsOfSearch'] = rows
-        print('in redirect')
-        return redirect(url_for('showResults'))
-    
+
+#This was from attempt at pop up search
+#@socketio.on('send', namespace = '/pokemonsearch')
+#def submit_search(search):
+#    session['searchedString'] = search
+#    session['resultsOfSearch'] = []
+#    connection = connectToDB()
+#    cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+#    rows = []
+#    query = cursor.mogrify("SELECT * from pokemon where name = %s", (search,))
+#    cursor.execute(query)
+#    rows = cursor.fetchall()
+#    print("query " + query)
+#    print(rows)
+#    if not rows:
+#        print("test")
+#        query = cursor.mogrify("Select name, weight, height, male, female from pokemon p1, types t1 where p1.id = t1.poke_ID and t1.type_ID = (SELECT ID from PossibleTypes where nameoftype = %s);", (search,))
+#        cursor.execute(query)
+#        rows = cursor.fetchall()
+#        print("query" + query)
+#        print(rows)
+#        if not rows:
+#           print("There are no rows!")
+#        else:
+#            session['resultsOfSearch'] = rows
+#            print('in redirect')
+#            return redirect(url_for('showResults'))
+#    else:
+#        session['resultsOfSearch'] = rows
+#        print('in redirect')
+#        return redirect(url_for('showResults'))
 
 @app.route('/',  methods=['GET', 'POST'])
 def mainIndex():
@@ -110,24 +111,38 @@ def mainIndex():
    
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    #Connect to DB
     connection = connectToDB()
     cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    #Try to print the user, if not logged in this will throw an error and we set username to an empty string
     try:
         print('User: ' + session['username'])
     except:
         session['username'] = ''
-    # if user typed in a post ...
+        
+    # if user tried to log in ...
     if request.method == 'POST':
+          #Get username
           username = request.form['userName']
           print('incoming username ' + username)
+          
+          #Get password
           pw = request.form['pw']
+          
+          #Try and find the user and password combo in the table
           try: 
+            #Print the query running
             print(cursor.mogrify("select * from users where username = %s AND password = crypt(%s, password);", (username, pw)))
+            
+            #Execute on the db
             cursor.execute("select * from users WHERE username = %s AND password = crypt(%s, password);" , (username, pw))
+            
+            #If a user-pwd combo was found and it matches then log the person in
             if cursor.fetchone():
               print("got here")
               session['username'] = username
               session['loggedIn']=True 
+            #If not, then they aren't logged in, you want to put something here to let the person know that it did not work out
             else:
               session['loggedIn']=False
               session['username']=''
@@ -135,10 +150,13 @@ def login():
             print("Error accesing from users table when logging in")
             print(cursor.execute("select * from users WHERE username = %s AND password = crypt(%s, password);" , (username, pw)))
     print('Username: ' + session['username'])
+    
+    #Go to home page
     return redirect(url_for('mainIndex'))
     
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
+    #Username is nothing and loggedIn is false
     session['username'] = ''
     session['loggedIn'] = False
     return redirect(url_for('mainIndex'))
@@ -235,13 +253,26 @@ def showResults():
     connection = connectToDB()
     cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
     rows = []
-    query = cursor.mogrify("SELECT * from pokemon where name = %s", (session['searchedString'],))
+    #format the string so that it matches the format of names in the db
+    try: 
+        session['searchedString'] = session['searchedString'].capitalize()
+    except:
+        print('Cannot capitalize')
+    
+    #search for name
+    query = cursor.mogrify("SELECT name, weight, height, male, female from pokemon where name = %s", (session['searchedString'],))
     cursor.execute(query)
     rows = cursor.fetchall()
     print("query " + query)
     print(rows)
     if not rows:
         print("test")
+        
+        #Format for searching for type
+        try: 
+            session['searchedString'] = session['searchedString'].lower()
+        except:
+            print('Cannot capitalize')
         query = cursor.mogrify("Select name, weight, height, male, female from pokemon p1, types t1 where p1.id = t1.poke_ID and t1.type_ID = (SELECT ID from PossibleTypes where nameoftype = %s);", (session['searchedString'],))
         cursor.execute(query)
         rows = cursor.fetchall()
@@ -253,8 +284,6 @@ def showResults():
             session['resultsOfSearch'] = rows
     else:
         session['resultsOfSearch'] = rows
-    print("We are here")
-    print(session['resultsOfSearch'])
     return render_template('searchResults.html', 
                             loggedIn=session['loggedIn'], 
                             user=session['username'], 

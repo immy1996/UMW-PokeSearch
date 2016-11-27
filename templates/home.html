@@ -86,7 +86,7 @@
                             <li class="active"><a href="/">Home</a></li>
                             <li><a href="/about">About</a></li>
                             <li><a href="/chat">Chat</a></li>
-                            <li class="dropdown m-menu-fw"><a href="/directory" data-toggle="dropdown" class="dropdown-toggle">Directory
+                            <!--<li class="dropdown m-menu-fw"><a href="/directory" data-toggle="dropdown" class="dropdown-toggle">Directory
                                 <span><i class="fa fa-angle-down"></i></span></a>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -126,18 +126,17 @@
                                         </div>
                                     </li>
                                 </ul>
-                            </li>
-                        
+                            </li>-->
+                            {% if loggedIn == False %}
                             <li><a href="/register">Register</a></li>
+                            {% endif %}
                             {% if loggedIn %}
+                            <li><a>Welcome, {{user}}</a></li>
                             <li>
-                                <h2>
-                                    <font color="white">User: {{user}}</font>
-                                </h2>
-                            </li>
                             <form method="post" action="/logout">
                                 <button id="Logout" name="Logout" class="btn btn-primary">Logout</button>
                             </form>
+                            </li>
                             {% else %}
                             <li><button type="submit" name="Login" value="Send" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log In</button></li>
                             {% endif %}
@@ -689,10 +688,10 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <div class="col-md-12">
-                            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                        </div>
+                    <div class="col-md-12">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

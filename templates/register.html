@@ -171,7 +171,10 @@
                                 <p>In order to register, please fill out the required information below: </p>
                                 <p>
                                     <label for="username">Username:</label>
-                                    <input type="text" id="username" name="userName" size="40" </p>
+                                    <input type="text" id="username" name="userName" size="40" </p> 
+                                    {% if userUsed %}
+                                    <h1 style="color:#ff3333;">Username is taken!</h1>
+                                    {% endif %}
                                     <p>
                                         <label for="password">Password:</label>
                                         <input type="password" id="password" name="pw" size="40" </p>

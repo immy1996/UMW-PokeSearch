@@ -67,6 +67,11 @@ def mainIndex():
         print('User: ' + session['username'])
     except:
         session['username'] = ''
+        
+        pikachurows = ""
+        ninerows = ""
+        squirtlerows = ""
+        magmarrows = ""
     # if user typed in a post ...
     if request.method == 'POST':
           username = request.form['userName']
@@ -115,6 +120,9 @@ def login():
     connection = connectToDB()
     cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
     #Try to print the user, if not logged in this will throw an error and we set username to an empty string
+    
+    session['loggedIn'] = False
+    
     try:
         print('User: ' + session['username'])
     except:
@@ -128,7 +136,8 @@ def login():
           
           #Get password
           pw = request.form['pw']
-          
+          session['SignedInButton'] = False
+          SignedInButton = session['SignedInButton']
           #Try and find the user and password combo in the table
           try: 
             #Print the query running
@@ -140,19 +149,24 @@ def login():
             #If a user-pwd combo was found and it matches then log the person in
             if cursor.fetchone():
               print("got here")
+              SignedInButton = False
               session['username'] = username
               session['loggedIn']=True 
+              return redirect(url_for('mainIndex'))
             #If not, then they aren't logged in, you want to put something here to let the person know that it did not work out
             else:
+              print("Invalid username or password!")
+              connection.rollback()
+              SignedInButton = True
               session['loggedIn']=False
               session['username']=''
+              return render_template('login.html', failed = SignedInButton)
           except:
             print("Error accesing from users table when logging in")
             print(cursor.execute("select * from users WHERE username = %s AND password = crypt(%s, password);" , (username, pw)))
     print('Username: ' + session['username'])
     
     #Go to home page
-    return redirect(url_for('mainIndex'))
     
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
@@ -202,11 +216,38 @@ def register():
     results=[]
     connection = connectToDB()
     cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    
+    userTaken = False
+    
+    #  #Search for username
+    # query = cursor.mogrify("select username from users WHERE username = %s", (request.form['username'], ))
+    # cursor.execute(query)
+    # out = cursor.fetchone()
+    # connection.commit()
+    
+    # if(request.form['username'] == out):
+    #     userTaken = True
+    #     print("Username is already taken")
+    #     return render_template('register.html', userUsed = userTaken)
+    
 
     if request.method == "POST":
         # if request.form['password']!=request.form['checkpassword']:
         #     print("Password does not match. Please re-enter!")
         # else:
+            # if user typed in a post ...
+        #Search for username
+        query = cursor.mogrify("select username from users WHERE username = %s", (request.form['username'], ))
+        cursor.execute(query)
+        out = cursor.fetchone()
+        connection.commit()
+    
+        if(request.form['username'] == out):
+         userTaken = True
+         print("Username is already taken")
+         return render_template('register.html', userUsed = userTaken)
+              
+        else:
               try:
                   mog=cursor.mogrify("INSERT INTO users (username, password) VALUES (%s, crypt(%s, gen_salt('bf')));" , 
                       (request.form['userName'], request.form['pw']) )
@@ -226,19 +267,7 @@ def register():
                     print("Error executing select")
               results=cursor.fetchall()
               return redirect(url_for('mainIndex'))
-              
-    else:
-    # if user typed in a post ...
-   # userLogin = request.form['Login']
-    #if userLogin==True:
-        if request.method == 'POST':
-          session['username'] = request.form['username']
-        
-          pw = request.form['pw']
-          cursor.execute("select * from users WHERE username = %s AND password = %s;" , (session['username'], pw))
-          if cursor.fetchone():
-             return redirect(url_for('mainIndex'))
-     
+
             
     if 'username' in session:
       user = [session['username']]

@@ -1,6 +1,6 @@
-#from flask import Flask, render_template, request, redirect, url_for
-#import psycopg2, psycopg2.extras, os
-#app = Flask(__name__)
+from flask import Flask, render_template, request, redirect, url_for
+import psycopg2, psycopg2.extras, os
+app = Flask(__name__)
 import psycopg2, psycopg2.extras, os
 import uuid
 from flask import Flask, render_template, request, redirect, url_for, session

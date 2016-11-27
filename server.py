@@ -68,10 +68,11 @@ def mainIndex():
     except:
         session['username'] = ''
         
-        pikachurows = ""
-        ninerows = ""
-        squirtlerows = ""
-        magmarrows = ""
+    pikachurows = ''
+    ninerows = ""
+    squirtlerows = ""
+    magmarrows = ""
+    
     # if user typed in a post ...
     if request.method == 'POST':
           username = request.form['userName']
@@ -163,7 +164,7 @@ def login():
               return render_template('login.html', failed = SignedInButton)
           except:
             print("Error accesing from users table when logging in")
-            print(cursor.execute("select * from users WHERE username = %s AND password = crypt(%s, password);" , (username, pw)))
+            #print(cursor.execute("select * from users WHERE username = %s AND password = crypt(%s, password);" , (username, pw)))
     print('Username: ' + session['username'])
     
     #Go to home page
@@ -216,38 +217,11 @@ def register():
     results=[]
     connection = connectToDB()
     cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    
-    userTaken = False
-    
-    #  #Search for username
-    # query = cursor.mogrify("select username from users WHERE username = %s", (request.form['username'], ))
-    # cursor.execute(query)
-    # out = cursor.fetchone()
-    # connection.commit()
-    
-    # if(request.form['username'] == out):
-    #     userTaken = True
-    #     print("Username is already taken")
-    #     return render_template('register.html', userUsed = userTaken)
-    
 
     if request.method == "POST":
         # if request.form['password']!=request.form['checkpassword']:
         #     print("Password does not match. Please re-enter!")
         # else:
-            # if user typed in a post ...
-        #Search for username
-        query = cursor.mogrify("select username from users WHERE username = %s", (request.form['username'], ))
-        cursor.execute(query)
-        out = cursor.fetchone()
-        connection.commit()
-    
-        if(request.form['username'] == out):
-         userTaken = True
-         print("Username is already taken")
-         return render_template('register.html', userUsed = userTaken)
-              
-        else:
               try:
                   mog=cursor.mogrify("INSERT INTO users (username, password) VALUES (%s, crypt(%s, gen_salt('bf')));" , 
                       (request.form['userName'], request.form['pw']) )
@@ -260,14 +234,26 @@ def register():
                       (request.form['userName'], request.form['pw']) )
                 connection.rollback()
               connection.commit()
-            
+              
               try:
                     cursor.execute("select * from users;")
               except:
                     print("Error executing select")
               results=cursor.fetchall()
               return redirect(url_for('mainIndex'))
-
+              
+    else:
+    # if user typed in a post ...
+   # userLogin = request.form['Login']
+    #if userLogin==True:
+        if request.method == 'POST':
+          session['username'] = request.form['username']
+        
+          pw = request.form['pw']
+          cursor.execute("select * from users WHERE username = %s AND password = %s;" , (session['username'], pw))
+          if cursor.fetchone():
+             return redirect(url_for('mainIndex'))
+     
             
     if 'username' in session:
       user = [session['username']]

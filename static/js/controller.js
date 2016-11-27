@@ -7,9 +7,7 @@ poke.controller('searchController', function($scope){
     
     $scope.results = [{"name": "Clara", "weight": "50.0", "height": "48.1", "male" : "n", "female": "y"}];
     $scope.termToSearch = '';
-    $scope.username = '';
-    $scope.password = '';
-
+    
     socket.on('results', function(res){
         console.log(res);
         console.log($scope.results);
@@ -27,13 +25,6 @@ poke.controller('searchController', function($scope){
       socket.emit('identify', $scope.termToSearch);  
         
     };
-    
-    $scope.login = function login() {
-     console.log('Logging in:'); 
-     socket.emit('login', $scope.username, $scope.password);
-   };
-   
-   
     
     socket.on('connect', function(){
        console.log('connected'); 

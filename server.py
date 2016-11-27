@@ -275,7 +275,7 @@ def showResults():
         print('Cannot capitalize')
     
     #search for name
-    query = cursor.mogrify("SELECT name, weight, height, male, female from pokemon where name = %s", (session['searchedString'],))
+    query = cursor.mogrify("SELECT name, weight, height, male, female, hp, attack, defense, sp_attack, sp_defense, speed, total_rating, evolves_into from pokemon where name = %s", (session['searchedString'],))
     cursor.execute(query)
     rows = cursor.fetchall()
     print("query " + query)
@@ -288,7 +288,7 @@ def showResults():
             session['searchedString'] = session['searchedString'].lower()
         except:
             print('Cannot capitalize')
-        query = cursor.mogrify("Select name, weight, height, male, female from pokemon p1, types t1 where p1.id = t1.poke_ID and t1.type_ID = (SELECT ID from PossibleTypes where nameoftype = %s);", (session['searchedString'],))
+        query = cursor.mogrify("Select  name, weight, height, male, female, hp, attack, defense, sp_attack, sp_defense, speed, total_rating, evolves_into from pokemon p1, types t1 where p1.id = t1.poke_ID and t1.type_ID = (SELECT ID from PossibleTypes where nameoftype = %s);", (session['searchedString'],))
         cursor.execute(query)
         rows = cursor.fetchall()
         print("query" + query)

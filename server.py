@@ -212,55 +212,65 @@ def about():
 
     return render_template('about.html', loggedIn=session['loggedIn'], user=session['username'])
     
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register')
 def register():
+  return render_template('register.html')
+    
+@app.route('/register', methods=['POST'])
+def register2():
     results=[]
     connection = connectToDB()
     cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-    if request.method == "POST":
         # if request.form['password']!=request.form['checkpassword']:
         #     print("Password does not match. Please re-enter!")
         # else:
-              try:
-                  mog=cursor.mogrify("INSERT INTO users (username, password) VALUES (%s, crypt(%s, gen_salt('bf')));" , 
-                      (request.form['userName'], request.form['pw']) )
-                  print(mog)
-                  cursor.execute("INSERT INTO users (username, password) VALUES (%s, crypt(%s, gen_salt('bf')));" , 
-                      (request.form['userName'], request.form['pw']) )
-              except:
-                print("Error inserting into users table!")
-                print("Tried: INSERT INTO users (username, password) VALUES (%s, %s);" , 
-                      (request.form['userName'], request.form['pw']) )
-                connection.rollback()
-              connection.commit()
-              
-              try:
-                    cursor.execute("select * from users;")
-              except:
-                    print("Error executing select")
-              results=cursor.fetchall()
-              return redirect(url_for('mainIndex'))
-              
-    else:
-    # if user typed in a post ...
-   # userLogin = request.form['Login']
-    #if userLogin==True:
-        if request.method == 'POST':
-          session['username'] = request.form['username']
         
-          pw = request.form['pw']
-          cursor.execute("select * from users WHERE username = %s AND password = %s;" , (session['username'], pw))
-          if cursor.fetchone():
-             return redirect(url_for('mainIndex'))
-     
+    userTaken = False
+    passCheck = False
+    
+    query = cursor.mogrify("select * from users WHERE username = %s", (request.form['userName'], ))
+    cursor.execute(query)
+    userresults = cursor.rowcount
+    connection.commit()
+    
+    if(userresults != 0):
+           userTaken = True
+           print("Username already taken")
+           return render_template('register.html', userUsed = userTaken)
+           
+    elif(request.form['pw'] != request.form['checkpw']):
+         passCheck = True
+         print("Passwords do not match")
+         return render_template('register.html', passFail = passCheck)
+    else:
+        try:
+              mog=cursor.mogrify("INSERT INTO users (username, password) VALUES (%s, crypt(%s, gen_salt('bf')));" , 
+                  (request.form['userName'], request.form['pw']) )
+              print(mog)
+              cursor.execute("INSERT INTO users (username, password) VALUES (%s, crypt(%s, gen_salt('bf')));" , 
+                  (request.form['userName'], request.form['pw']) )
+        except:
+            print("Error inserting into users table!")
+            print("Tried: INSERT INTO users (username, password) VALUES (%s, %s);" , 
+                  (request.form['userName'], request.form['pw']) )
+            connection.rollback()
+        connection.commit()
+          
+        try:
+                cursor.execute("select * from users;")
+        except:
+                print("Error executing select")
+        results=cursor.fetchall()
+        return redirect(url_for('mainIndex'))
+
             
     if 'username' in session:
       user = [session['username']]
     else:
       user = ['']
     return render_template('register.html', selectedMenu='Register', users = results, loggedIn=session['loggedIn'], user=session['username'])
-   
+
 @app.route('/results', methods=['GET', 'POST'])
 def showResults():
     session['searchedString'] = request.form['search']

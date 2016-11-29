@@ -86,7 +86,7 @@
                             <li class="active"><a href="/">Home</a></li>
                             <li><a href="/about">About</a></li>
                             <li><a href="/chat">Chat</a></li>
-                            <li class="dropdown m-menu-fw"><a href="/directory" data-toggle="dropdown" class="dropdown-toggle">Directory
+                            <!--<li class="dropdown m-menu-fw"><a href="/directory" data-toggle="dropdown" class="dropdown-toggle">Directory
                                 <span><i class="fa fa-angle-down"></i></span></a>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -126,18 +126,17 @@
                                         </div>
                                     </li>
                                 </ul>
-                            </li>
-                        
+                            </li>-->
+                            {% if loggedIn == False %}
                             <li><a href="/register">Register</a></li>
+                            {% endif %}
                             {% if loggedIn %}
+                            <li><a>Welcome, {{user}}</a></li>
                             <li>
-                                <h2>
-                                    <font color="white">User: {{user}}</font>
-                                </h2>
-                            </li>
                             <form method="post" action="/logout">
                                 <button id="Logout" name="Logout" class="btn btn-primary">Logout</button>
                             </form>
+                            </li>
                             {% else %}
                             <li><button type="submit" name="Login" value="Send" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log In</button></li>
                             {% endif %}
@@ -214,7 +213,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="thumbnail clearfix">
-                                <a href="#"><img class="img-responsive" src="img/pikachu.png" alt="Image"></a>
+                                <a href="#"><img class="img-responsive" src="img/Pikachu.jpg" alt="Image"></a>
 
                                 {% for pikachu in pikachurows %}
                                 <div class="caption">
@@ -352,7 +351,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <figure class="thumbnail">
-                                <a href="#"><img src="img/clefairy.jpg" class="img-responsive" alt="Image"></a>
+                                <a href="#"><img src="img/Clefairy.jpg" class="img-responsive" alt="Image"></a>
                                 <figcaption class="caption text-center">
                                     <h3>Clefairy -
                                         <small>Fairy</small>
@@ -364,7 +363,7 @@
 
                         <div class="col-sm-4">
                             <figure class="thumbnail">
-                                <a href="#"><img src="img/machoke.jpg" class="img-responsive" alt="Image"></a>
+                                <a href="#"><img src="img/Machoke.jpg" class="img-responsive" alt="Image"></a>
                                 <figcaption class="caption text-center">
                                     <h3>Machoke -
                                         <small>Fighting</small>
@@ -376,7 +375,7 @@
 
                         <div class="col-sm-4">
                             <figure class="thumbnail">
-                                <a href="#"><img src="img/charmander.jpg" class="img-responsive" alt="Image"></a>
+                                <a href="#"><img src="img/Charmander.jpg" class="img-responsive" alt="Image"></a>
                                 <figcaption class="caption text-center">
                                     <h3>Charmander -
                                         <small>Fire</small>
@@ -391,7 +390,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <figure class="thumbnail">
-                                <a href="#"><img src="img/vaporeon.jpg" class="img-responsive" alt="Image"></a>
+                                <a href="#"><img src="img/Vaporeon.jpg" class="img-responsive" alt="Image"></a>
                                 <figcaption class="caption text-center">
                                     <h3>Vaporeon -
                                         <small>Water</small>
@@ -403,7 +402,7 @@
 
                         <div class="col-sm-4">
                             <figure class="thumbnail">
-                                <a href="#"><img src="img/sandslash.jpg" class="img-responsive" alt="Image"></a>
+                                <a href="#"><img src="img/Sandslash.jpg" class="img-responsive" alt="Image"></a>
                                 <figcaption class="caption text-center">
                                     <h3>Sandslash -
                                         <small>Ground</small>
@@ -503,13 +502,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
-                            <a href="#"><img src="img/blastoise.png" alt="Image"></a>
+                            <a href="#"><img src="img/Blastoise.jpg" alt="Image"></a>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
                             <a href="#"><img src="img/charizard.png" alt="Image"></a>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
-                            <a href="#"><img src="img/electabuzz.png" alt="Image"></a>
+                            <a href="#"><img src="img/Electabuzz.jpg" alt="Image"></a>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
                             <a href="#"><img src="img/golduck.png" alt="Image"></a>
@@ -689,10 +688,10 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <div class="col-md-12">
-                            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                        </div>
+                    <div class="col-md-12">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

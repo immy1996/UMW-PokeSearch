@@ -166,21 +166,24 @@
                     </section>
                     <div class="container">
                         <div id="testimonialSlider" class="carousel slide" data-ride="carousel">
-                            
+                            {% if userUsed %}
+                                        <h3 style="color:#ff3333;"><center><marquee style="height:1;width:200" scrollamount="200" scrolldelay="500">Username is taken!</marquee></center></h3>
+                            {% elif passFail %}
+                                        <h3 style="color:#ff3333;"><center><marquee style="height:1;width:200" scrollamount="200" scrolldelay="500">Passwords do not match!</marquee></center></h3>
+                            {% endif %}
                             <form method="POST" name="register" action="/register">
                                 <p>In order to register, please fill out the required information below: </p>
                                 <p>
                                     <label for="username">Username:</label>
-                                    <input type="text" id="username" name="userName" size="40" </p>
-                                    <p>
-                                        <label for="password">Password:</label>
-                                        <input type="password" id="password" name="pw" size="40" </p>
+                                    <input type="text" id="username" name="userName" size="40"</p>
+                                <p>
+                                    <label for="password">Password:</label>
+                                    <input type="password" id="password" name="pw" size="40" </p>
+                                <p>
+                                    <label for="checkpassword">Confirm <br />Password: </label>
+                                    <input type="password" id="checkpassword" name="checkpw" size="40" </p>
 
-                                        <!--<br /><label for="checkpassword">Confirm <br />Password: </label>-->
-                                        <!--<input type="password" id="checkpassword" name="checkpw" size="40" </p>-->
-
-                                    </p>
-                                    <p><input type="submit" style="background-color:blue" value="Submit" name="Register" /></p>
+                                    <p><input type="submit" style="background-color:blue" value="Submit" name="Register"  ng-disabled="!text"/></p>
                             </form>
 
                             <!-- #testimonialSlider -->

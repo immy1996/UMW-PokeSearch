@@ -16,7 +16,6 @@ DROP TABLE users;
 CREATE TABLE pokemon (
   ID serial NOT NULL,
   name varchar(35)  NOT NULL,
-  image varchar(500) NOT NULL,
   weight decimal NOT NULL,
   height decimal NOT NULL,
   male decimal NOT NULL,

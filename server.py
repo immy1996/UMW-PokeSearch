@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import psycopg2, psycopg2.extras, os
 app = Flask(__name__)
-import psycopg2, psycopg2.extras, os
+import psycopg2, psycopg2.extras, os, random
 import uuid
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask.ext.socketio import SocketIO, emit
@@ -98,22 +98,35 @@ def mainIndex():
     else:
        session['loggedIn'] = True
        print('User: ' + session['username'])
+
+
+
     try:
-        pikachu = cursor.execute("SELECT * from pokemon where name = 'Pikachu';")
-        pikachurows = cursor.fetchall()
+	a = random.randint(1,151)
+	b = random.randint(1,151)
+	c = random.randint(1,151)
+	d = random.randint(1,151)
+
+	print str(a)
+	print str(b)
+	print str(c)	
+	print str(d)
+	print cursor.mogrify("SELECT * from pokemon where id = %d;", (a,))
+        pokemonA = cursor.execute("SELECT * from pokemon where id = %d;", (a,))
+        Arows = cursor.fetchall()
         
-        ninetails = cursor.execute("SELECT * from pokemon where name = 'Ninetails';")
-        ninerows = cursor.fetchall()
+        pokemonB = cursor.execute("SELECT * from pokemon where id = '%s';", (b,))
+        Brows = cursor.fetchall()
         
-        squirtle = cursor.execute("SELECT * from pokemon where name = 'Squirtle';")
-        squirtlerows = cursor.fetchall()
+        pokemonC = cursor.execute("SELECT * from pokemon where id = '%s';", (c,))
+        Crows = cursor.fetchall()
         
-        magmar = cursor.execute("SELECT * from pokemon where name = 'Magmar';")
-        magmarrows = cursor.fetchall()
+        pokemonD = cursor.execute("SELECT * from pokemon where id = '%s';", (d,))
+        Drows = cursor.fetchall()
     except:
         print("Error executing select")
  
-    return render_template('home.html', pikachurows=pikachurows, ninerows=ninerows, squirtlerows=squirtlerows, magmarrows=magmarrows, loggedIn=session['loggedIn'], user=session['username'])
+    return render_template('home.html', A=Arows, B=Brows, C=Crows, D=Drows, loggedIn=session['loggedIn'], user=session['username'])
    
 @app.route('/login', methods=['GET', 'POST'])
 def login():

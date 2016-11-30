@@ -9,6 +9,7 @@ from flask.ext.socketio import SocketIO, emit
 app = Flask(__name__, static_url_path='')
 app.config['SECRET_KEY'] = 'secret!'
 
+messages = []
 
 def connectToDB():
   connectionString = 'dbname=pokemon user=pokeuser password=pokemon host=localhost'
@@ -170,12 +171,12 @@ def mainIndex():
 	fireIds = [4,5,6,37,38,58,59,77,78,126,136,146]
 	groundIds = [27,28,31,34,50,51,74,75,76,95,104,105,111,112]
 
-	bugNum = random.randint(1,len(bugIds))
-	fightNum = random.randint(1,len(fightIds))
-	waterNum = random.randint(1,len(waterIds))
-	poisonNum = random.randint(1,len(poisonIds))
-	fireNum = random.randint(1,len(fireIds))
-	groundNum = random.randint(1,len(groundIds))
+	bugNum = random.randint(0,len(bugIds)-1)
+	fightNum = random.randint(0,len(fightIds)-1)
+	waterNum = random.randint(0,len(waterIds)-1)
+	poisonNum = random.randint(0,len(poisonIds)-1)
+	fireNum = random.randint(0,len(fireIds)-1)
+	groundNum = random.randint(0,len(groundIds)-1)
 
 	str7 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (bugIds[bugNum],))
 	str8 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (fightIds[fightNum],))
@@ -263,6 +264,40 @@ def logout():
     session['username'] = ''
     session['loggedIn'] = False
     return redirect(url_for('mainIndex'))
+    
+    
+@app.route('/chat')
+def chat():
+    connection = connectToDB()
+    cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    query = cursor.mogrify("select * from msgs;")
+    cursor.execute(query)
+    result = cursor.fetchall()
+    messages[:] = []
+    for r in result:
+        messages.append({'text': r[2], 'name': r[1]})
+    return render_template('chat.html', messages = messages, loggedIn=session['loggedIn'], user=session['username'])
+
+@socketio.on('message', namespace ='/pokemonsearch')
+def newMessage(message):
+    connection = connectToDB()
+    cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    query = cursor.mogrify("select * from users WHERE username = %s" , (session['username'],))
+    print query
+    cursor.execute(query)
+    result = cursor.fetchone()
+    if result:
+        print(session['username'])
+        tmp = {'text': message, 'name': session['username']}
+        queryTerm = (session['username'], message)
+        query = cursor.mogrify("INSERT into msgs (username, message) VALUES (%s,%s)", queryTerm)
+        cursor.execute(query)
+        connection.commit()
+        emit('message', tmp, broadcast = True)
+    
+    
+    
+    
     
 @app.route('/about')
 def about():

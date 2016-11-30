@@ -1,19 +1,18 @@
-DROP TABLE types;
-DROP TABLE pokemon;
-DROP TABLE PossibleTypes;
-DROP TABLE users;
 DROP DATABASE pokemon;
 CREATE DATABASE pokemon;
+CREATE EXTENSION pgcrypto;
 \c pokemon;
-
---
--- Table structure for table pokemon
---
-DROP TABLE types;
 DROP TABLE pokemon;
 DROP TABLE PossibleTypes;
 DROP TABLE users;
+DROP TABLE types;
 DROP TABLE msgs;
+-- Table structure for table pokemon
+--
+
+
+
+DROP TABLE pokemon;
 CREATE TABLE pokemon (
   ID serial NOT NULL,
   name varchar(35)  NOT NULL,
@@ -439,17 +438,27 @@ INSERT INTO types (poke_ID, type_ID) VALUES (150, 13);
 INSERT INTO types (poke_ID, type_ID) VALUES (151, 13);
 
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
 ID serial NOT NULL,
 username varchar(12) NOT NULL,
 password varchar(5000) NOT NULL,
 PRIMARY KEY  (ID)
 );
 
-CREATE TABLE msgs (
+CREATE TABLE IF NOT EXISTS msgs (
   id serial,
   username varchar(12) NOT NULL,
   message varchar(5000) NOT NULL,
   PRIMARY KEY (id)
 );
 
+
+GRANT ALL on users to pokeuser;
+GRANT ALL on users_id_seq to pokeuser;
+GRANT ALL on pokemon to pokeuser;
+GRANT ALL on pokemon_id_seq to pokeuser;
+GRANT ALL on types to pokeuser;
+GRANT ALL on PossibleTypes to pokeuser;
+GRANT ALL on PossibleTypes_id_seq to pokeuser;
+GRANT ALL on msgs to pokeuser;
+GRANT ALL on msgs_id_seq to pokeuser;

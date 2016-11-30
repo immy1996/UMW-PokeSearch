@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+            <section class="single-page-title">
+                
+                </section>
+    <div class="container" ng-controller="searchController">
+            <div id="searchResults">
+              <h1>Chat</h1>
+              <p>Live chat the live feed</p>
+              <div class="scroll" id="msgpane">
+                  <p ng-repeat="msg in messages">
+                  <b ng-bind="msg.name"></b>:&nbsp;
+                  <span ng-bind="msg.text"></span>
+                </p>
+                 
+                </p>
+              </div>
+            </div>
+            <input type="text" ng-model="text" size="30" placeholder=".." />
+            <button ng-click="sendmsg()">Send</button>
+    </div>        
+            <!-- .x-services -->
+            
+{%endblock%}

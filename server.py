@@ -106,7 +106,6 @@ def mainIndex():
 	d = numbers[3]	
 	e = numbers[4]	
 	f = numbers[5]	
-
 	if a == 29:
 		str1 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND female = '%s';", (a,100.0))
 	elif a == 32:
@@ -162,6 +161,22 @@ def mainIndex():
  
         pokemonF = cursor.execute(str6)
         F = cursor.fetchall()
+
+
+	bugIds = [10,11,12,13,14,15, 46, 47, 48, 49, 123, 127]
+	fightIds = [56,57,62,66,67,68,106,107]
+	waterIds = [7,8,9,54,55,60,61,62,72,73,79,80,86,87,90,91,98,99,116,117,118,119,120,121,129,130,131,134,138,139,140,141]
+	poisonIds = [1,2,3,13,14,15,32,23,24,29,30,31,33,34,41,42,43,44,45,48,49,69,70,71,72,73,88,89,92,93,94,109,110]
+	fireIds = [4,5,6,37,38,58,59,77,78,126,136,146]
+	groundIds = [27,28,31,34,50,51,74,75,76,95,104,105,111,112]
+
+	bugNum = random.sample(xrange(1,len(bugIds)), 1)
+	bugNum = random.sample(xrange(1,len(bugIds)), 1)
+	bugNum = random.sample(xrange(1,len(bugIds)), 1)
+	bugNum = random.sample(xrange(1,len(bugIds)), 1)
+	bugNum = random.sample(xrange(1,len(bugIds)), 1)
+	bugNum = random.sample(xrange(1,len(bugIds)), 1)
+	bugNum = random.sample(xrange(1,len(bugIds)), 1)
 
 
 

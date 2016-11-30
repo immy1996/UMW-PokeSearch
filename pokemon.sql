@@ -13,6 +13,7 @@ DROP TABLE types;
 DROP TABLE pokemon;
 DROP TABLE PossibleTypes;
 DROP TABLE users;
+DROP TABLE msgs;
 CREATE TABLE pokemon (
   ID serial NOT NULL,
   name varchar(35)  NOT NULL,
@@ -445,6 +446,10 @@ password varchar(5000) NOT NULL,
 PRIMARY KEY  (ID)
 );
 
-
-
+CREATE TABLE msgs (
+  id serial,
+  username varchar(12) NOT NULL,
+  message varchar(5000) NOT NULL,
+  PRIMARY KEY (id)
+);
 

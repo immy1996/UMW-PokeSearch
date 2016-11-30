@@ -98,11 +98,13 @@ def mainIndex():
     connection.commit()
 
     try:
-	#a = random.randint(1,151)
-	a = 1
-	b = random.randint(1,151)
-	c = random.randint(1,151)
-	d = random.randint(1,151)
+
+	numbers = random.sample(xrange(1,151), 4)
+	print numbers
+	a = numbers[0]	
+	b = numbers[1]	
+	c = numbers[2]
+	d = numbers[3]	
 
 	str1 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (a,))
 	str2 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (b,))

@@ -215,11 +215,15 @@
                             <div class="thumbnail clearfix">
 
                                 {% for i in A %}
+	
+			   	<div id="header">
+					<b><big> {{i[1]}} </big></b>
+				</div>
+				<div id="left">	
+					<a href=#><img class="img-responsive" src=img/{{i[2]}} alt="Image"></a>
+				</div>
 
-				<a href=#><img class="img-responsive" src={{i[2]}} alt="Image"></a>
-                                <div class="caption">
-                                    <h3><a href="#">{{i[1]}}</a></h3>
-
+                                <div id="right" class="caption">
                                     <p>Weight: {{i[3]}}</p>
                                     <p>Height: {{i[4]}}</p>
                                     <p>Male: {{i[5]}}</p>
@@ -227,8 +231,8 @@
                                     <p>HP: {{i[7]}}</p>
                                     <p>Attack: {{i[8]}}</p>
                                     <p>Defense: {{i[9]}}</p>
-                                    <p>Speed: {{i[9]}}</p>
-                                    <p>Evolution: {{i[9]}}</p>
+                                    <p>Speed: {{[10]}}</p>
+                                    <p>Evolution: {{i[11]}}</p>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -237,9 +241,17 @@
                             <div class="thumbnail clearfix">
 
                                 {% for i in B %}
-                                <div class="caption">
-                                <a href="#"><img class="img-responsive" src={{i[2]}} alt="Image"></a>
-                                    <h3><a href="#">{{i[1]}}</a></h3>
+        	
+			   	<div id="header">
+					<b><big> {{i[1]}} </big></b>
+				</div>
+				<div id="left">	
+	
+				<a href=#><img class="img-responsive" src=img/{{i[2]}} alt="image"></a>
+				</div>
+
+                                <div id="right" class="caption"> 
+
 
                                     <p>Weight: {{i[3]}}</p>
                                     <p>Height: {{i[4]}}</p>
@@ -248,8 +260,8 @@
 				    <p>HP: {{i[7]}}</p>
                                     <p>Attack: {{i[8]}}</p>
                                     <p>Defense: {{i[9]}}</p>
-                                    <p>Speed: {{i[9]}}</p>
-                                    <p>Evolution: {{i[9]}}</p>
+                                    <p>Speed: {{i[10]}}</p>
+                                    <p>Evolution: {{i[11]}}</p>
 
                                 </div>
                                 {% endfor %}
@@ -262,9 +274,16 @@
                             <div class="thumbnail clearfix">
 
                                 {% for i in C %}
-                                <div class="caption">
-                                <a href="#"><img class="img-responsive" src={{i[2]}} alt="Image"></a>
-                                    <h3><a href="#">{{i[1]}}</a></h3>
+         	
+			   	<div id="header">
+					<b><big> {{i[1]}} </big></b>
+				</div>
+				<div id="left">	
+	
+				<a href=#><img class="img-responsive" src=img/{{i[2]}} alt="image"></a>
+				</div>
+
+                                <div id="right" class="caption"> 
 
                                     <p>Weight: {{i[3]}}</p>
                                     <p>Height: {{i[4]}}</p>
@@ -273,8 +292,8 @@
                           	    <p>HP: {{i[7]}}</p>
                                     <p>Attack: {{i[8]}}</p>
                                     <p>Defense: {{i[9]}}</p>
-                                    <p>Speed: {{i[9]}}</p>
-                                    <p>Evolution: {{i[9]}}</p>
+                                    <p>Speed: {{i[10]}}</p>
+                                    <p>Evolution: {{i[11]}}</p>
       				</div>
                                 {% endfor %}
                             </div>
@@ -283,8 +302,7 @@
                             <div class="thumbnail clearfix">
 
                                 {% for i in D %}
-                                <div class="caption">
-                                <a href="#"><img class="img-responsive" src={{i[2]}} alt="Image"></a>
+                                <a href="#"><img class="img-responsive" src=img/{{i[2]}} alt="Image"></a>
                                     <h3><a href="#">{{i[1]}}</a></h3>
 
                                     <p>Weight: {{i[3]}}</p>
@@ -294,8 +312,8 @@
 				    <p>HP: {{i[7]}}</p>
                                     <p>Attack: {{i[8]}}</p>
                                     <p>Defense: {{i[9]}}</p>
-                                    <p>Speed: {{i[9]}}</p>
-                                    <p>Evolution: {{i[9]}}</p>
+                                    <p>Speed: {{i[10]}}</p>
+                                    <p>Evolution: {{i[11]}}</p>
                                </div>
                                 {% endfor %}
                             </div>
@@ -305,7 +323,7 @@
 
                                 {% for i in E %}
                                 <div class="caption">
-                                <a href="#"><img class="img-responsive" src={{i[2]}} alt="Image"></a>
+                                <a href="#"><img class="img-responsive" src=img/{{i[2]}} alt="Image"></a>
                                     <h3><a href="#">{{i[1]}}</a></h3>
 
                                     <p>Weight: {{i[3]}}</p>
@@ -315,8 +333,8 @@
 				    <p>HP: {{i[7]}}</p>
                                     <p>Attack: {{i[8]}}</p>
                                     <p>Defense: {{i[9]}}</p>
-                                    <p>Speed: {{i[9]}}</p>
-                                    <p>Evolution: {{i[9]}}</p>
+                                    <p>Speed: {{i[10]}}</p>
+                                    <p>Evolution: {{i[11]}}</p>
                                </div>
                                 {% endfor %}
                             </div>
@@ -326,7 +344,7 @@
 
                                 {% for i in F %}
                                 <div class="caption">
-                                <a href="#"><img class="img-responsive" src={{i[2]}} alt="Image"></a>
+                                <a href="#"><img class="img-responsive" src=img/{{i[2]}} alt="Image"></a>
                                     <h3><a href="#">{{i[1]}}</a></h3>
 
                                     <p>Weight: {{i[3]}}</p>
@@ -336,8 +354,8 @@
 				    <p>HP: {{i[7]}}</p>
                                     <p>Attack: {{i[8]}}</p>
                                     <p>Defense: {{i[9]}}</p>
-                                    <p>Speed: {{i[9]}}</p>
-                                    <p>Evolution: {{i[9]}}</p>
+                                    <p>Speed: {{i[10]}}</p>
+                                    <p>Evolution: {{i[11]}}</p>
                                </div>
                                 {% endfor %}
                             </div>                   <!-- .row -->
@@ -475,7 +493,7 @@
 
                         <div class="col-sm-4">
                             <figure class="thumbnail">
-                                <a href="#"><img src="img/nidoran-f.jpg" class="img-responsive" alt="Image"></a>
+                                <a href="#"><img src="img/Nidoran-f.jpg" class="img-responsive" alt="Image"></a>
                                 <figcaption class="caption text-center">
                                     <h3>Nidoran -
                                         <small>Poison</small>
@@ -566,19 +584,19 @@
                             <a href="#"><img src="img/Blastoise.jpg" alt="Image"></a>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
-                            <a href="#"><img src="img/charizard.png" alt="Image"></a>
+                            <a href="#"><img src="img/Charizard.jpg" alt="Image"></a>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
                             <a href="#"><img src="img/Electabuzz.jpg" alt="Image"></a>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
-                            <a href="#"><img src="img/golduck.png" alt="Image"></a>
+                            <a href="#"><img src="img/Golduck.jpg" alt="Image"></a>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
-                            <a href="#"><img src="img/lapras.png" alt="Image"></a>
+                            <a href="#"><img src="img/Lapras.jpg" alt="Image"></a>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6 section-margin">
-                            <a href="#"><img src="img/scyther.png" alt="Image"></a>
+                            <a href="#"><img src="img/Scyther.jpg" alt="Image"></a>
                         </div>
                     </div>
                 </div>

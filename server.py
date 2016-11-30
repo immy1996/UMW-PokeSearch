@@ -100,7 +100,6 @@ def mainIndex():
     try:
 
 	numbers = random.sample(xrange(1,151), 6)
-	print numbers
 	a = numbers[0]	
 	b = numbers[1]	
 	c = numbers[2]

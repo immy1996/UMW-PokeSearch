@@ -99,17 +99,21 @@ def mainIndex():
 
     try:
 
-	numbers = random.sample(xrange(1,151), 4)
+	numbers = random.sample(xrange(1,151), 6)
 	print numbers
 	a = numbers[0]	
 	b = numbers[1]	
 	c = numbers[2]
 	d = numbers[3]	
+	e = numbers[4]	
+	f = numbers[5]	
 
 	str1 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (a,))
 	str2 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (b,))
 	str3 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (c,))
 	str4 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (d,))
+	str5 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (e,))
+	str6 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (f,))
 
 
         pokemonA = cursor.execute(str1)
@@ -124,12 +128,20 @@ def mainIndex():
         
         pokemonD = cursor.execute(str4)
         D = cursor.fetchall()
+ 
+        pokemonE = cursor.execute(str5)
+        E = cursor.fetchall()
+ 
+        pokemonF = cursor.execute(str6)
+        F = cursor.fetchall()
+
+
 
     except Exception as e:
          print(e)
 	 print("Error executing select")
  
-    return render_template('home.html', A=A, B=B, C=C, D=D, loggedIn=session['loggedIn'], user=session['username'])
+    return render_template('home.html', A=A, B=B, C=C, D=D, E=E, F=F, loggedIn=session['loggedIn'], user=session['username'])
    
 @app.route('/login', methods=['GET', 'POST'])
 def login():

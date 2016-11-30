@@ -213,9 +213,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="thumbnail clearfix">
-                                <a href="#"><img class="img-responsive" src="img/Mew.png" alt="Image"></a>
 
                                 {% for i in A %}
+
+
+                               str = {{i[2]}}
+				<a href="#"><img class="img-responsive" src= "img/"+str alt="Image"></a>
                                 <div class="caption">
                                     <h3><a href="#">{{i[1]}}</a></h3>
 

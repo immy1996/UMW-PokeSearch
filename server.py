@@ -68,10 +68,6 @@ def mainIndex():
     except:
         session['username'] = ''
         
-    pikachurows = ''
-    ninerows = ""
-    squirtlerows = ""
-    magmarrows = ""
     
     # if user typed in a post ...
     if request.method == 'POST':
@@ -99,34 +95,39 @@ def mainIndex():
        session['loggedIn'] = True
        print('User: ' + session['username'])
 
-
+    connection.commit()
 
     try:
-	a = random.randint(1,151)
+	#a = random.randint(1,151)
+	a = 1
 	b = random.randint(1,151)
 	c = random.randint(1,151)
 	d = random.randint(1,151)
 
-	print str(a)
-	print str(b)
-	print str(c)	
-	print str(d)
-	print cursor.mogrify("SELECT * from pokemon where id = %d;", (a,))
-        pokemonA = cursor.execute("SELECT * from pokemon where id = %d;", (a,))
-        Arows = cursor.fetchall()
+	str1 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (a,))
+	str2 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (b,))
+	str3 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (c,))
+	str4 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (d,))
+
+
+        pokemonA = cursor.execute(str1)
+	print pokemonA
+        A = cursor.fetchall()
         
-        pokemonB = cursor.execute("SELECT * from pokemon where id = '%s';", (b,))
-        Brows = cursor.fetchall()
+        pokemonB = cursor.execute(str2)
+        B = cursor.fetchall()
         
-        pokemonC = cursor.execute("SELECT * from pokemon where id = '%s';", (c,))
-        Crows = cursor.fetchall()
+        pokemonC = cursor.execute(str3)
+        C = cursor.fetchall()
         
-        pokemonD = cursor.execute("SELECT * from pokemon where id = '%s';", (d,))
-        Drows = cursor.fetchall()
-    except:
-        print("Error executing select")
+        pokemonD = cursor.execute(str4)
+        D = cursor.fetchall()
+
+    except Exception as e:
+         print(e)
+	 print("Error executing select")
  
-    return render_template('home.html', A=Arows, B=Brows, C=Crows, D=Drows, loggedIn=session['loggedIn'], user=session['username'])
+    return render_template('home.html', A=A, B=B, C=C, D=D, loggedIn=session['loggedIn'], user=session['username'])
    
 @app.route('/login', methods=['GET', 'POST'])
 def login():

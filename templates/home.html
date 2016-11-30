@@ -430,36 +430,42 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <figure class="thumbnail">
-                                <a href="#"><img src="img/Clefairy.jpg" class="img-responsive" alt="Image"></a>
+                                {% for i in bug %}
+                                <a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
                                 <figcaption class="caption text-center">
-                                    <h3>Clefairy -
-                                        <small>Fairy</small>
+                                    <h3> {{i[1]}} -
+                                        <small>Bug</small>
                                     </h3>
                                 </figcaption>
+				{% endfor %}
                             </figure>
                         </div>
                         <!-- /.col-sm-4 -->
 
                         <div class="col-sm-4">
                             <figure class="thumbnail">
-                                <a href="#"><img src="img/Machoke.jpg" class="img-responsive" alt="Image"></a>
+                                {% for i in fight %}
+                                <a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
                                 <figcaption class="caption text-center">
-                                    <h3>Machoke -
+                                    <h3> {{i[1]}} -
                                         <small>Fighting</small>
                                     </h3>
                                 </figcaption>
+				{% endfor %}
                             </figure>
                         </div>
                         <!-- /.col-sm-4 -->
 
                         <div class="col-sm-4">
                             <figure class="thumbnail">
-                                <a href="#"><img src="img/Charmander.jpg" class="img-responsive" alt="Image"></a>
+                                {% for i in fire %}
+                                <a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
                                 <figcaption class="caption text-center">
-                                    <h3>Charmander -
+                                    <h3>{{i[1]}} -
                                         <small>Fire</small>
                                     </h3>
                                 </figcaption>
+				{% endfor %}
                             </figure>
                         </div>
                         <!-- /.col-sm-4 -->
@@ -469,36 +475,42 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <figure class="thumbnail">
-                                <a href="#"><img src="img/Vaporeon.jpg" class="img-responsive" alt="Image"></a>
+                                {% for i in water %}
+                                <a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
                                 <figcaption class="caption text-center">
-                                    <h3>Vaporeon -
+                                    <h3> {{i[1]}}-
                                         <small>Water</small>
                                     </h3>
                                 </figcaption>
+				{% endfor %}
                             </figure>
                         </div>
                         <!-- /.col-sm-4 -->
 
                         <div class="col-sm-4">
                             <figure class="thumbnail">
-                                <a href="#"><img src="img/Sandslash.jpg" class="img-responsive" alt="Image"></a>
+                                {% for i in ground %}
+                                <a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
                                 <figcaption class="caption text-center">
-                                    <h3>Sandslash -
+                                    <h3> {{i[1]}} -
                                         <small>Ground</small>
                                     </h3>
                                 </figcaption>
+				{% endfor %}
                             </figure>
                         </div>
                         <!-- /.col-sm-4 -->
 
                         <div class="col-sm-4">
                             <figure class="thumbnail">
-                                <a href="#"><img src="img/Nidoran-f.jpg" class="img-responsive" alt="Image"></a>
+                                {% for i in poison %}
+                                <a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
                                 <figcaption class="caption text-center">
-                                    <h3>Nidoran -
+                                    <h3> {{i[1]}} -
                                         <small>Poison</small>
                                     </h3>
                                 </figcaption>
+				{% endfor %}
                             </figure>
                         </div>
                         <!-- /.col-sm-4 -->

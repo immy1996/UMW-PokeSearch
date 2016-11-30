@@ -170,21 +170,38 @@ def mainIndex():
 	fireIds = [4,5,6,37,38,58,59,77,78,126,136,146]
 	groundIds = [27,28,31,34,50,51,74,75,76,95,104,105,111,112]
 
-	bugNum = random.sample(xrange(1,len(bugIds)), 1)
-	bugNum = random.sample(xrange(1,len(bugIds)), 1)
-	bugNum = random.sample(xrange(1,len(bugIds)), 1)
-	bugNum = random.sample(xrange(1,len(bugIds)), 1)
-	bugNum = random.sample(xrange(1,len(bugIds)), 1)
-	bugNum = random.sample(xrange(1,len(bugIds)), 1)
-	bugNum = random.sample(xrange(1,len(bugIds)), 1)
+	bugNum = random.randint(1,len(bugIds))
+	fightNum = random.randint(1,len(fightIds))
+	waterNum = random.randint(1,len(waterIds))
+	poisonNum = random.randint(1,len(poisonIds))
+	fireNum = random.randint(1,len(fireIds))
+	groundNum = random.randint(1,len(groundIds))
 
+	str7 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (bugIds[bugNum],))
+	str8 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (fightIds[fightNum],))
+	str9 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (waterIds[waterNum],))
+	str10 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (poisonIds[poisonNum],))
+	str11 = cursor.mogrify("SELECT * from pokemon where id = '%s';",  (fireIds[fireNum],))
+	str12 = cursor.mogrify("SELECT * from pokemon where id = '%s';",  (groundIds[groundNum],))
 
+        bugs = cursor.execute(str7)
+        bug = cursor.fetchall()
+        fighters = cursor.execute(str8)
+        fight = cursor.fetchall()
+        waters = cursor.execute(str9)
+        water = cursor.fetchall()
+        poisons = cursor.execute(str10)
+        poison = cursor.fetchall()
+        fires = cursor.execute(str11)
+        fire = cursor.fetchall()
+        grounds = cursor.execute(str12)
+        ground = cursor.fetchall()
 
     except Exception as e:
          print(e)
 	 print("Error executing select")
  
-    return render_template('home.html', A=A, B=B, C=C, D=D, E=E, F=F, loggedIn=session['loggedIn'], user=session['username'])
+    return render_template('home.html', A=A, B=B, C=C, D=D, E=E, F=F, bug=bug, fight=fight, water=water, poison=poison, fire=fire, ground=ground, loggedIn=session['loggedIn'], user=session['username'])
    
 @app.route('/login', methods=['GET', 'POST'])
 def login():

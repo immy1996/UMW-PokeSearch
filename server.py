@@ -107,13 +107,42 @@ def mainIndex():
 	e = numbers[4]	
 	f = numbers[5]	
 
-	str1 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (a,))
-	str2 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (b,))
-	str3 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (c,))
-	str4 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (d,))
-	str5 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (e,))
-	str6 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (f,))
-
+	if a == 29:
+		str1 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND female = '%s';", (a,100.0))
+	elif a == 32:
+		str1 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND male = '%s';", (a,100.0))
+	else:
+		str1 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (a,))
+	if b == 29:
+		str2 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND female = '%s';", (b,100.0))
+	elif b == 32:
+		str2 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND male = '%s';", (b,100.0))
+	else:
+		str2 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (b,))
+	if c == 29:
+		str3 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND female = '%s';", (c,100.0))
+	elif c == 32:
+		str3 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND male = '%s';", (c,100.0))
+	else:
+		str3 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (c,))
+	if d == 29:
+		str4 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND female = '%s';", (d,100.0))
+	elif d == 32:
+		str4 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND male = '%s';", (d,100.0))
+	else:
+		str4 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (d,))
+	if e == 29:
+		str5 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND female = '%s';", (e,100.0))
+	elif e == 32:
+		str5 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND male = '%s';", (e,100.0))
+	else:
+		str5 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (e,))
+	if f == 29:
+		str6 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND female = '%s';", (f,100.0))
+	elif f == 32:
+		str6 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND male = '%s';", (f,100.0))
+	else:
+		str6 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (f,))
 
         pokemonA = cursor.execute(str1)
 	print pokemonA

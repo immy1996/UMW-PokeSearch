@@ -104,20 +104,21 @@ def mainIndex():
 	print numbers
 	pokeList = []
 
-	for n in numbers:
-		pokestring = cursor.mogrify("SELECT * from pokemon where id = '%s';", (n,))
+	for i in range(len(numbers)):
+		pokestring = cursor.mogrify("SELECT * from pokemon where id = '%s';", (numbers[i], ))
 		pokemon = cursor.execute(pokestring)
 		print pokemon
 		A = cursor.fetchall()
 		pokeList.append(A)
 
-	types = ['Bug', 'Fight', 'Water', 'Poison', 'Fire', 'Ground']
+	types = ['Bug', 'Fight', 'Water', 'Poison', 'Fire', 'Ground', 'Rock', 'Psychic', 'Ghost']
 	typeList = []
-	for num in types:
-		typepokemon = cursor.mogrify("SELECT id from pokemon where typeID = '%s';", (types[num],))
-		string = cursor.mogrify("SELECT name from pokemon where id IN (SELECT poke_id from types where type_id IN (SELECT id from PossibleTypes where nameoftype = typepokemon));")
+	for num in range(len(types)):
+		string = cursor.mogrify("SELECT name from pokemon where id IN (SELECT poke_id from types where type_id IN (SELECT id from PossibleTypes where nameoftype = %s));", (types[num],))
 		allPokemonOfType = cursor.execute(string)
-		randomNum = random.randint(0,len(allPokemonOfType)-1)
+		print allPokemonOfType
+		A = cursor.fetchall()
+		randomNum = random.randint(0,len(A)-1)
 		choosenOne = cursor.mogrify("SELECT * from pokemon where name = '%s';", (allPokemonOfType[randomNum],))
 		x = cursor.execute(choosenOne)
 		print x

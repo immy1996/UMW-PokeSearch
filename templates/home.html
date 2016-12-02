@@ -211,178 +211,31 @@
 
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="thumbnail clearfix">
+                       	{% for i in pokeList %}
+                        	div class="col-md-6">
+        	                    	<div class="thumbnail clearfix">
+		
+				   	<div id="header">
+						<b><big> {{i[1]}} </big></b>
+					</div>
+					<div id="left">	
+						<a href=#><img class="img-responsive" src=img/{{i[2]}} alt="Image"></a>
+					</div>
 
-                                {% for i in A %}
-	
-			   	<div id="header">
-					<b><big> {{i[1]}} </big></b>
-				</div>
-				<div id="left">	
-					<a href=#><img class="img-responsive" src=img/{{i[2]}} alt="Image"></a>
-				</div>
-
-                                <div id="right" class="caption">
-                                    <p>Weight: {{i[3]}}</p>
-                                    <p>Height: {{i[4]}}</p>
-                                    <p>Male: {{i[5]}}</p>
-                                    <p>Female: {{i[6]}}</p>
-                                    <p>HP: {{i[7]}}</p>
-                                    <p>Attack: {{i[8]}}</p>
-                                    <p>Defense: {{i[9]}}</p>
-                                    <p>Speed: {{i[12]}}</p>
-                                    <p>Evolution: {{i[14]}}</p>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="thumbnail clearfix">
-
-                                {% for i in B %}
-        	
-			   	<div id="header">
-					<b><big> {{i[1]}} </big></b>
-				</div>
-				<div id="left">	
-	
-				<a href=#><img class="img-responsive" src=img/{{i[2]}} alt="image"></a>
-				</div>
-
-                                <div id="right" class="caption"> 
-
-
-                                    <p>Weight: {{i[3]}}</p>
-                                    <p>Height: {{i[4]}}</p>
-                                    <p>Male: {{i[5]}}</p>
-                                    <p>Female: {{i[6]}}</p>
-				    <p>HP: {{i[7]}}</p>
-                                    <p>Attack: {{i[8]}}</p>
-                                    <p>Defense: {{i[9]}}</p>
-                                    <p>Speed: {{i[12]}}</p>
-                                    <p>Evolution: {{i[14]}}</p>
-
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    <!-- row -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="thumbnail clearfix">
-
-                                {% for i in C %}
-         	
-			   	<div id="header">
-					<b><big> {{i[1]}} </big></b>
-				</div>
-				<div id="left">	
-	
-				<a href=#><img class="img-responsive" src=img/{{i[2]}} alt="image"></a>
-				</div>
-
-                                <div id="right" class="caption"> 
-
-                                    <p>Weight: {{i[3]}}</p>
-                                    <p>Height: {{i[4]}}</p>
-                                    <p>Male: {{i[5]}}</p>
-                                    <p>Female: {{i[6]}}</p>
-                          	    <p>HP: {{i[7]}}</p>
-                                    <p>Attack: {{i[8]}}</p>
-                                    <p>Defense: {{i[9]}}</p>
-                                    <p>Speed: {{i[12]}}</p>
-                                    <p>Evolution: {{i[14]}}</p>
-      				</div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="thumbnail clearfix">
-
-                                {% for i in D %}
- 	
-			   	<div id="header">
-					<b><big> {{i[1]}} </big></b>
-				</div>
-				<div id="left">	
-	
-				<a href=#><img class="img-responsive" src=img/{{i[2]}} alt="image"></a>
-				</div>
-
-                                <div id="right" class="caption"> 
-
-                                    <p>Weight: {{i[3]}}</p>
-                                    <p>Height: {{i[4]}}</p>
-                                    <p>Male: {{i[5]}}</p>
-                                    <p>Female: {{i[6]}}</p>
-				    <p>HP: {{i[7]}}</p>
-                                    <p>Attack: {{i[8]}}</p>
-                                    <p>Defense: {{i[9]}}</p>
-                                    <p>Speed: {{i[12]}}</p>
-                                    <p>Evolution: {{i[14]}}</p>
-                               </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                         <div class="col-md-6">
-                            <div class="thumbnail clearfix">
-
-                                {% for i in E %}
-
- 	
-			   	<div id="header">
-					<b><big> {{i[1]}} </big></b>
-				</div>
-				<div id="left">	
-	
-				<a href=#><img class="img-responsive" src=img/{{i[2]}} alt="image"></a>
-				</div>
-
-                                <div id="right" class="caption"> 
-
-                                    <p>Weight: {{i[3]}}</p>
-                                    <p>Height: {{i[4]}}</p>
-                                    <p>Male: {{i[5]}}</p>
-                                    <p>Female: {{i[6]}}</p>
-				    <p>HP: {{i[7]}}</p>
-                                    <p>Attack: {{i[8]}}</p>
-                                    <p>Defense: {{i[9]}}</p>
-                                    <p>Speed: {{i[12]}}</p>
-                                    <p>Evolution: {{i[14]}}</p>
-                               </div>
-                                {% endfor %}
-                            </div>
-                         </div>
-                         <div class="col-md-6">
-                            <div class="thumbnail clearfix">
-
-                                {% for i in F %}
- 	
-			   	<div id="header">
-					<b><big> {{i[1]}} </big></b>
-				</div>
-				<div id="left">	
-	
-				<a href=#><img class="img-responsive" src=img/{{i[2]}} alt="image"></a>
-				</div>
-
-                                <div id="right" class="caption"> 
-
-                                    <p>Weight: {{i[3]}}</p>
-                                    <p>Height: {{i[4]}}</p>
-                                    <p>Male: {{i[5]}}</p>
-                                    <p>Female: {{i[6]}}</p>
-				    <p>HP: {{i[7]}}</p>
-                                    <p>Attack: {{i[8]}}</p>
-                                    <p>Defense: {{i[9]}}</p>
-                                    <p>Speed: {{i[12]}}</p>
-                                    <p>Evolution: {{i[14]}}</p>
-                               </div>
-                                {% endfor %}
-                            </div>                   <!-- .row -->
-                </div>
+                        	        <div id="right" class="caption">
+                                	    <p>Weight: {{i[3]}}</p>
+                        	            <p>Height: {{i[4]}}</p>
+                                	    <p>Male: {{i[5]}}</p>
+                 	                    <p>Female: {{i[6]}}</p>
+                        	            <p>HP: {{i[7]}}</p>
+                                	    <p>Attack: {{i[8]}}</p>
+                                            <p>Defense: {{i[9]}}</p>
+                                    	    <p>Speed: {{i[12]}}</p>
+                                    	    <p>Evolution: {{i[14]}}</p>
+                                	</div>
+                        	</div>
+                    	{%endfor%}
+                     </div>
                 <!-- .container -->
             </section>
             <!-- .x-services -->
@@ -451,97 +304,24 @@
                 </section>
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <figure class="thumbnail">
-                                {% for i in bug %}
-                                <a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
-                                <figcaption class="caption text-center">
-                                    <h3> {{i[1]}} -
-                                        <small>Bug</small>
-                                    </h3>
-                                </figcaption>
-				{% endfor %}
-                            </figure>
-                        </div>
-                        <!-- /.col-sm-4 -->
-
-                        <div class="col-sm-4">
-                            <figure class="thumbnail">
-                                {% for i in fight %}
-                                <a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
-                                <figcaption class="caption text-center">
-                                    <h3> {{i[1]}} -
-                                        <small>Fighting</small>
-                                    </h3>
-                                </figcaption>
-				{% endfor %}
-                            </figure>
-                        </div>
-                        <!-- /.col-sm-4 -->
-
-                        <div class="col-sm-4">
-                            <figure class="thumbnail">
-                                {% for i in fire %}
-                                <a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
-                                <figcaption class="caption text-center">
-                                    <h3>{{i[1]}} -
-                                        <small>Fire</small>
-                                    </h3>
-                                </figcaption>
-				{% endfor %}
-                            </figure>
-                        </div>
-                        <!-- /.col-sm-4 -->
-
-                    </div>
-                    <!-- /.row -->
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <figure class="thumbnail">
-                                {% for i in water %}
-                                <a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
-                                <figcaption class="caption text-center">
-                                    <h3> {{i[1]}}-
-                                        <small>Water</small>
-                                    </h3>
-                                </figcaption>
-				{% endfor %}
-                            </figure>
-                        </div>
-                        <!-- /.col-sm-4 -->
-
-                        <div class="col-sm-4">
-                            <figure class="thumbnail">
-                                {% for i in ground %}
-                                <a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
-                                <figcaption class="caption text-center">
-                                    <h3> {{i[1]}} -
-                                        <small>Ground</small>
-                                    </h3>
-                                </figcaption>
-				{% endfor %}
-                            </figure>
-                        </div>
-                        <!-- /.col-sm-4 -->
-
-                        <div class="col-sm-4">
-                            <figure class="thumbnail">
-                                {% for i in poison %}
-                                <a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
-                                <figcaption class="caption text-center">
-                                    <h3> {{i[1]}} -
-                                        <small>Poison</small>
-                                    </h3>
-                                </figcaption>
-				{% endfor %}
-                            </figure>
-                        </div>
-                        <!-- /.col-sm-4 -->
-
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.container -->
+                        {% for i in type %}
+				<div class="col-sm-4">
+				    <figure class="thumbnail">
+					<a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
+					<figcaption class="caption text-center">
+					    <h3> {{i[1]}} -
+						<small>type[i]</small>
+					    </h3>
+					</figcaption>
+					{% endfor %}
+				    </figure>
+				</div>
+				<!-- /.col-sm-4 -->
+			{% endfor%}
+                     </div>
+                     <!-- /.row -->
+                 </div>
+                 <!-- /.container -->
             </section>
             <!-- .team -->
 

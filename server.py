@@ -101,108 +101,34 @@ def mainIndex():
     try:
 
 	numbers = random.sample(xrange(1,151), 6)
-	a = numbers[0]	
-	b = numbers[1]	
-	c = numbers[2]
-	d = numbers[3]	
-	e = numbers[4]	
-	f = numbers[5]	
-	if a == 29:
-		str1 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND female = '%s';", (a,100.0))
-	elif a == 32:
-		str1 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND male = '%s';", (a,100.0))
-	else:
-		str1 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (a,))
-	if b == 29:
-		str2 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND female = '%s';", (b,100.0))
-	elif b == 32:
-		str2 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND male = '%s';", (b,100.0))
-	else:
-		str2 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (b,))
-	if c == 29:
-		str3 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND female = '%s';", (c,100.0))
-	elif c == 32:
-		str3 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND male = '%s';", (c,100.0))
-	else:
-		str3 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (c,))
-	if d == 29:
-		str4 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND female = '%s';", (d,100.0))
-	elif d == 32:
-		str4 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND male = '%s';", (d,100.0))
-	else:
-		str4 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (d,))
-	if e == 29:
-		str5 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND female = '%s';", (e,100.0))
-	elif e == 32:
-		str5 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND male = '%s';", (e,100.0))
-	else:
-		str5 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (e,))
-	if f == 29:
-		str6 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND female = '%s';", (f,100.0))
-	elif f == 32:
-		str6 = cursor.mogrify("SELECT * from pokemon where id = '%s' AND male = '%s';", (f,100.0))
-	else:
-		str6 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (f,))
+	print numbers
+	pokeList = []
 
-        pokemonA = cursor.execute(str1)
-	print pokemonA
-        A = cursor.fetchall()
-        
-        pokemonB = cursor.execute(str2)
-        B = cursor.fetchall()
-        
-        pokemonC = cursor.execute(str3)
-        C = cursor.fetchall()
-        
-        pokemonD = cursor.execute(str4)
-        D = cursor.fetchall()
- 
-        pokemonE = cursor.execute(str5)
-        E = cursor.fetchall()
- 
-        pokemonF = cursor.execute(str6)
-        F = cursor.fetchall()
+	for n in numbers:
+		pokestring = cursor.mogrify("SELECT * from pokemon where id = '%s';", (n,))
+		pokemon = cursor.execute(pokestring)
+		print pokemon
+		A = cursor.fetchall()
+		pokeList.append(A)
 
-
-	bugIds = [10,11,12,13,14,15, 46, 47, 48, 49, 123, 127]
-	fightIds = [56,57,62,66,67,68,106,107]
-	waterIds = [7,8,9,54,55,60,61,62,72,73,79,80,86,87,90,91,98,99,116,117,118,119,120,121,129,130,131,134,138,139,140,141]
-	poisonIds = [1,2,3,13,14,15,32,23,24,29,30,31,33,34,41,42,43,44,45,48,49,69,70,71,72,73,88,89,92,93,94,109,110]
-	fireIds = [4,5,6,37,38,58,59,77,78,126,136,146]
-	groundIds = [27,28,31,34,50,51,74,75,76,95,104,105,111,112]
-
-	bugNum = random.randint(0,len(bugIds)-1)
-	fightNum = random.randint(0,len(fightIds)-1)
-	waterNum = random.randint(0,len(waterIds)-1)
-	poisonNum = random.randint(0,len(poisonIds)-1)
-	fireNum = random.randint(0,len(fireIds)-1)
-	groundNum = random.randint(0,len(groundIds)-1)
-
-	str7 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (bugIds[bugNum],))
-	str8 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (fightIds[fightNum],))
-	str9 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (waterIds[waterNum],))
-	str10 = cursor.mogrify("SELECT * from pokemon where id = '%s';", (poisonIds[poisonNum],))
-	str11 = cursor.mogrify("SELECT * from pokemon where id = '%s';",  (fireIds[fireNum],))
-	str12 = cursor.mogrify("SELECT * from pokemon where id = '%s';",  (groundIds[groundNum],))
-
-        bugs = cursor.execute(str7)
-        bug = cursor.fetchall()
-        fighters = cursor.execute(str8)
-        fight = cursor.fetchall()
-        waters = cursor.execute(str9)
-        water = cursor.fetchall()
-        poisons = cursor.execute(str10)
-        poison = cursor.fetchall()
-        fires = cursor.execute(str11)
-        fire = cursor.fetchall()
-        grounds = cursor.execute(str12)
-        ground = cursor.fetchall()
+	types = ['Bug', 'Fight', 'Water', 'Poison', 'Fire', 'Ground']
+	typeList = []
+	for num in types:
+		typepokemon = cursor.mogrify("SELECT id from pokemon where typeID = '%s';", (types[num],))
+		string = cursor.mogrify("SELECT name from pokemon where id IN (SELECT poke_id from types where type_id IN (SELECT id from PossibleTypes where nameoftype = typepokemon));")
+		allPokemonOfType = cursor.execute(string)
+		randomNum = random.randint(0,len(allPokemonOfType)-1)
+		choosenOne = cursor.mogrify("SELECT * from pokemon where name = '%s';", (allPokemonOfType[randomNum],))
+		x = cursor.execute(choosenOne)
+		print x
+	        A = cursor.fetchall()
+		typeList.append(A)
 
     except Exception as e:
          print(e)
 	 print("Error executing select")
  
-    return render_template('home.html', A=A, B=B, C=C, D=D, E=E, F=F, bug=bug, fight=fight, water=water, poison=poison, fire=fire, ground=ground, loggedIn=session['loggedIn'], user=session['username'])
+    return render_template('home.html', pokeList=pokeList, typeList=typeList, types=types, loggedIn=session['loggedIn'], user=session['username'])
    
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -408,7 +334,7 @@ def showResults():
         print('Cannot capitalize')
     
     #search for name
-    query = cursor.mogrify("SELECT name, image, weight, height, male, female, hp, attack, defense, sp_attack, sp_defense, speed, total_rating, evolves_into from pokemon where name = %s", (session['searchedString'],))
+    	query = cursor.mogrify("SELECT name, image, weight, height, male, female, hp, attack, defense, sp_attack, sp_defense, speed, total_rating, evolves_into from pokemon where name = %s", (session['searchedString'],))
     cursor.execute(query)
     rows = cursor.fetchall()
     print("query " + query)
@@ -422,9 +348,10 @@ def showResults():
         except:
             print('Cannot capitalize')
         query = cursor.mogrify("Select name, image, weight, height, male, female, hp, attack, defense, sp_attack, sp_defense, speed, total_rating, evolves_into from pokemon p1, types t1 where p1.id = t1.poke_ID and t1.type_ID = (SELECT ID from PossibleTypes where nameoftype = %s);", (session['searchedString'],))
+        print("query: " + query)
         cursor.execute(query)
         rows = cursor.fetchall()
-        print("query" + query)
+        print("query: " + query)
         print(rows)
         if not rows:
            print("There are no rows!")

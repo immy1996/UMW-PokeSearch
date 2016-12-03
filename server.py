@@ -99,43 +99,46 @@ def mainIndex():
     connection.commit()
 
     try:
+    	numbers = random.sample(xrange(1,151), 6)
+    	pokeList = []
+    
+    	for i in range(len(numbers)):
+    	    pokestring = cursor.mogrify("SELECT * from pokemon where id = '%s';", (numbers[i], ))
+    	    pokemon = cursor.execute(pokestring)
+    	    A = cursor.fetchall()
+    	    pokeList.append(A)
+    
+    	types = ['bug', 'fighting', 'water', 'poison', 'fire', 'ground', 'rock', 'psychic', 'ghost', 'electric', 'steel', 'normal', 'dragon', 'ice', 'flying', 'grass']
+    	x = range(0,15)
+    	#random.shuffle(x)
+    	typeList = []
+    	c = []
+    	
+    	for num in x:
+    	    string = cursor.mogrify("SELECT name from pokemon where id IN (SELECT poke_id from types where type_id = (SELECT id from PossibleTypes where nameoftype = %s));", (types[num],))
+    	    pokeType = cursor.execute(string)
+    	    A = cursor.fetchall()
+    	    a = [item for sublist in A for item in sublist]
+    	    randomNum = random.randint(0,len(a)-1)
+    	    choosenOne = cursor.mogrify("SELECT * from pokemon where name = %s;", (a[randomNum],))
+    	    x = cursor.execute(choosenOne)
+    	    B = cursor.fetchall()
+    	    b = [item for sublist in B for item in sublist]
 
-	numbers = random.sample(xrange(1,151), 6)
-	print numbers
-	pokeList = []
-
-	for i in range(len(numbers)):
-	    print numbers[i]
-	    pokestring = cursor.mogrify("SELECT * from pokemon where id = '%s';", (numbers[i], ))
-	    pokemon = cursor.execute(pokestring)
-	    A = cursor.fetchall()
-	    print A
-	    pokeList.append(A)
-
-	types = ['bug', 'fighting', 'water', 'poison', 'fire', 'ground', 'rock', 'psychic', 'ghost', 'electric', 'steel', 'normal', 'dragon', 'ice', 'flying', 'grass']
-	print types
-	print len(types)
-	x = range(0,16)
-	random.shuffle(x)
-	typeList = []
-	for num in x:
-	    string = cursor.mogrify("SELECT name from pokemon where id IN (SELECT poke_id from types where type_id = (SELECT id from PossibleTypes where nameoftype = %s));", (types[num],))
-	    pokeType = cursor.execute(string)
-	    A = cursor.fetchall()
-	    a = [item for sublist in A for item in sublist]
-	    randomNum = random.randint(0,len(a)-1)
-	    print randomNum
-	    choosenOne = cursor.mogrify("SELECT * from pokemon where name = %s;", (a[randomNum],))
-	    x = cursor.execute(choosenOne)
-	    B = cursor.fetchone()
-	    b = [item for sublist in B for item in sublist]
-	    b.append(types[num])
-	    print b
-	    typeList.append(b)
+    	    if(b[1] == 'Nidoran'):
+    	        choosenstr = cursor.mogrify("SELECT * from pokemon where name = 'Nidoran' AND male = %s;", (100.0,))
+    	        xx = cursor.execute(choosenstr)
+    	        C = cursor.fetchall()
+    	        c = [item for sublist in C for item in sublist]
+    	        c.append(types[num])
+    	        typeList.append(c)
+            else:
+                b.append(types[num])
+                typeList.append(b)
 
     except Exception as e:
-         print(e)
-	 print("Error executing select")
+        print(e)
+	print("Error executing select")
  
     return render_template('home.html', pokeList=pokeList, typeList=typeList, types=types, loggedIn=session['loggedIn'], user=session['username'])
    

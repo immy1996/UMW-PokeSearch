@@ -127,7 +127,7 @@ def mainIndex():
 	    print randomNum
 	    choosenOne = cursor.mogrify("SELECT * from pokemon where name = %s;", (a[randomNum],))
 	    x = cursor.execute(choosenOne)
-	    B = cursor.fetchall()
+	    B = cursor.fetchone()
 	    b = [item for sublist in B for item in sublist]
 	    b.append(types[num])
 	    print b

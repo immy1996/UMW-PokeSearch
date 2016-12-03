@@ -51,8 +51,12 @@ $font-size-base: 10px;
 .charts__chart[data-percent] {
 	&::after {
 		content: attr(data-percent);
+		line-height: 30px;
 		@include percentage;
+			-moz-transition: width 3000ms linear;
 	}
+		-moz-transition: width 3000ms linear;
+
 }
 
 .charts__chart {

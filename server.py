@@ -105,25 +105,33 @@ def mainIndex():
 	pokeList = []
 
 	for i in range(len(numbers)):
-		pokestring = cursor.mogrify("SELECT * from pokemon where id = '%s';", (numbers[i], ))
-		pokemon = cursor.execute(pokestring)
-		print pokemon
-		A = cursor.fetchall()
-		pokeList.append(A)
+	    print numbers[i]
+	    pokestring = cursor.mogrify("SELECT * from pokemon where id = '%s';", (numbers[i], ))
+	    pokemon = cursor.execute(pokestring)
+	    A = cursor.fetchall()
+	    print A
+	    pokeList.append(A)
 
-	types = ['Bug', 'Fight', 'Water', 'Poison', 'Fire', 'Ground', 'Rock', 'Psychic', 'Ghost']
+	types = ['bug', 'fighting', 'water', 'poison', 'fire', 'ground', 'rock', 'psychic', 'ghost', 'electric', 'steel', 'normal', 'dragon', 'ice', 'flying', 'grass']
+	print types
+	print len(types)
+	x = range(0,16)
+	random.shuffle(x)
 	typeList = []
-	for num in range(len(types)):
-		string = cursor.mogrify("SELECT name from pokemon where id IN (SELECT poke_id from types where type_id IN (SELECT id from PossibleTypes where nameoftype = %s));", (types[num],))
-		allPokemonOfType = cursor.execute(string)
-		print allPokemonOfType
-		A = cursor.fetchall()
-		randomNum = random.randint(0,len(A)-1)
-		choosenOne = cursor.mogrify("SELECT * from pokemon where name = '%s';", (allPokemonOfType[randomNum],))
-		x = cursor.execute(choosenOne)
-		print x
-	        A = cursor.fetchall()
-		typeList.append(A)
+	for num in x:
+	    string = cursor.mogrify("SELECT name from pokemon where id IN (SELECT poke_id from types where type_id = (SELECT id from PossibleTypes where nameoftype = %s));", (types[num],))
+	    pokeType = cursor.execute(string)
+	    A = cursor.fetchall()
+	    a = [item for sublist in A for item in sublist]
+	    randomNum = random.randint(0,len(a)-1)
+	    print randomNum
+	    choosenOne = cursor.mogrify("SELECT * from pokemon where name = %s;", (a[randomNum],))
+	    x = cursor.execute(choosenOne)
+	    B = cursor.fetchall()
+	    b = [item for sublist in B for item in sublist]
+	    b.append(types[num])
+	    print b
+	    typeList.append(b)
 
     except Exception as e:
          print(e)

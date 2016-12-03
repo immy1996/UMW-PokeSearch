@@ -211,31 +211,31 @@
 
                 <div class="container">
                     <div class="row">
-                       	{% for i in pokeList %}
-                        	div class="col-md-6">
-        	                    	<div class="thumbnail clearfix">
-		
-				   	<div id="header">
-						<b><big> {{i[1]}} </big></b>
-					</div>
-					<div id="left">	
-						<a href=#><img class="img-responsive" src=img/{{i[2]}} alt="Image"></a>
-					</div>
+                       	{%for i in typeList%}
+                        	<div class="col-md-6">
+        	                    <div class="thumbnail clearfix">
+				   	                <div id="header">
+						                <b><big> {{i[1]}} </big></b>
+					                </div>
+		    			            <div id="left">	
+			    			            <a href=#><img class="img-responsive" src=img/{{i[2]}} alt="Image"></a>
+				    	            </div>
 
-                        	        <div id="right" class="caption">
-                                	    <p>Weight: {{i[3]}}</p>
-                        	            <p>Height: {{i[4]}}</p>
-                                	    <p>Male: {{i[5]}}</p>
-                 	                    <p>Female: {{i[6]}}</p>
-                        	            <p>HP: {{i[7]}}</p>
-                                	    <p>Attack: {{i[8]}}</p>
-                                            <p>Defense: {{i[9]}}</p>
-                                    	    <p>Speed: {{i[12]}}</p>
-                                    	    <p>Evolution: {{i[14]}}</p>
-                                	</div>
-                        	</div>
+                                    <div id="right" class="caption">
+                                	   <p>Weight: {{i[3]}}</p>
+                        	           <p>Height: {{i[4]}}</p>
+                           	           <p>Male: {{i[5]}}</p>
+                                       <p>Female: {{i[6]}}</p>
+                            	       <p>HP: {{i[7]}}</p>
+                                	   <p>Attack: {{i[8]}}</p>
+                                       <p>Defense: {{i[9]}}</p>
+                            	       <p>Speed: {{i[12]}}</p>
+                                       <p>Evolution: {{i[14]}}</p>
+                                    </div>
+                                </div>
+                            </div>
                     	{%endfor%}
-                     </div>
+                    </div>
                 <!-- .container -->
             </section>
             <!-- .x-services -->
@@ -304,23 +304,23 @@
                 </section>
                 <div class="container">
                     <div class="row">
-                        {% for i in type %}
-				<div class="col-sm-4">
-				    <figure class="thumbnail">
-					<a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
-					<figcaption class="caption text-center">
-					    <h3> {{i[1]}} -
-						<small>type[i]</small>
-					    </h3>
-					</figcaption>
-					{% endfor %}
-				    </figure>
-				</div>
-				<!-- /.col-sm-4 -->
-			{% endfor%}
-                     </div>
+                        {% for i in typeList %}
+				        <div class="col-sm-4">
+    		    		    <figure class="thumbnail">
+	        	    			<a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
+					            <figcaption class="caption text-center">
+        					        <h3> {{i[1]}} -
+		        		        		<small>{{i[15]}}</small>
+				            	    </h3>
+			        		    </figcaption>
+				            </figure>
+				        </div>
+				        <!-- /.col-sm-4 <-->
+				        
+				        {% endfor%}
                      <!-- /.row -->
-                 </div>
+                    </div>
+                </div>
                  <!-- /.container -->
             </section>
             <!-- .team -->

@@ -458,10 +458,10 @@ CREATE TABLE IF NOT EXISTS msgs (
 
 GRANT ALL on users to pokeuser;
 GRANT ALL on users_id_seq to pokeuser;
-GRANT select on pokemon to pokeuser;
-GRANT select on pokemon_id_seq to pokeuser;
-GRANT select on types to pokeuser;
-GRANT select on PossibleTypes to pokeuser;
-GRANT select on PossibleTypes_id_seq to pokeuser;
+GRANT ALL on pokemon to pokeuser;
+GRANT ALL on pokemon_id_seq to pokeuser;
+GRANT ALL on types to pokeuser;
+GRANT ALL on PossibleTypes to pokeuser;
+GRANT ALL on PossibleTypes_id_seq to pokeuser;
 GRANT ALL on msgs to pokeuser;
 GRANT ALL on msgs_id_seq to pokeuser;

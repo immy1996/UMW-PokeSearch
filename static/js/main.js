@@ -3,7 +3,6 @@
   _charts.map(function(charts, index) {
     setTimeout(function() {
     	charts.style.width = charts.dataset.percent;
-    }, 0);
-    
+    }, index * 1000);
   });
 })(document)

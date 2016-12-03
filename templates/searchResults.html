@@ -21,19 +21,104 @@
                     {%for res in resultsOfSearch%}
                         <div class="col-md-6">
                             <div class="thumbnail clearfix">
+                                <!--attack defense special attack special defense speed overal-->
                                 <img class="img-responsive" src=img/{{res[1]}} alt="Image">
                                 <div class="caption">
                                     <h3 color="black"><b>     {{res[0]}}</b></h3><br/>
-                                      <h6><b>     Weight: {{res[2]}}</h6>
-                                      <h6><b>     Height: {{res[3]}}</h6>
-                                      <h6><b>     Male: {{res[4]}}</h6>
-                                      <h6><b>     Female: {{res[5]}}</h6>
-                                      <h6><b>     HP: {{res[6]}}</h6>
-                                      <h6><b>     Attack: {{res[7]}}</h6>
-                                      <h6><b>     Defense: {{res[8]}}</h6>
+                                      <h6><b>Weight:  {{res[2]}} </b></h6>
+                                      <h6><b>     Height: {{res[3]}}</b></h6>
+                                      <h6><b>     Male: {{res[4]}}</b></h6>
+                                      <h6><b>     Female: {{res[5]}}</b></h6>
+                                      <h6><b>     HP: {{res[6]}}</b></h6>
+                                     {%if res[6] >= 0 and res[6] <= 69 %}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--red" data-percent="{{res[6]}}" style="width: {{res[6]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {%elif res[6] >= 70 and res[6] <= 99%}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--yellow" data-percent="{{res[6]}}" style="width: {{res[6]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {%elif res[6] >= 100 %}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--green" data-percent="{{res[6]}}" style="width: {{res[6]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {% endif %}
+                                      
+                                      <h6><b>     Attack: {{res[7]}}      </b></h6>   
+                                      {%if res[7] >= 0 and res[7] <= 69 %}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--red" data-percent="{{res[7]}}" style="width: {{res[7]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {%elif res[7] >= 70 and res[7] <= 99%}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--yellow" data-percent="{{res[7]}}" style="width: {{res[7]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {%elif res[7] >= 100 %}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--green" data-percent="{{res[7]}}" style="width: {{res[7]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {% endif %}
+                                      
+                                      <h6><b>     Defense: {{res[8]}} </b></h6>
+                                      {%if res[8] >= 0 and res[8] <= 69 %}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--red" data-percent="{{res[8]}}" style="width: {{res[8]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {%elif res[8] >= 70 and res[8] <= 99%}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--yellow" data-percent="{{res[8]}}" style="width: {{res[8]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {%elif res[8] >= 100 %}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--green" data-percent="{{res[8]}}" style="width: {{res[8]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {% endif %}
+                                      
                                       <h6><b>     Special Attack: {{res[9]}}</h6>
+                                      {%if res[9] >= 0 and res[9] <= 69 %}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--red" data-percent="{{res[9]}}" style="width: {{res[9]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {%elif res[9] >= 70 and res[9] <= 99 %}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--yellow" data-percent="{{res[9]}}" style="width: {{res[9]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {%elif res[9] >= 100 %}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--green" data-percent="{{res[9]}}" style="width: {{res[9]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {% endif %}
+                                      
                                       <h6><b>     Special Defense: {{res[10]}}</h6>
+                                      {%if res[10] >= 0 and res[10] <= 69 %}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--red" data-percent="{{res[10]}}" style="width: {{res[10]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {%elif res[10] >= 70 and res[10] <= 99%}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--yellow" data-percent="{{res[10]}}" style="width: {{res[10]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {%elif res[10] >= 100 %}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--green" data-percent="{{res[10]}}" style="width: {{res[10]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {% endif %}
+                                      
                                       <h6><b>     Speed: {{res[11]}}</h6>
+                                      {%if res[11] >= 0 and res[11] <= 69 %}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--red" data-percent="{{res[11]}}" style="width: {{res[11]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {%elif res[11] >= 70 and res[11] <= 99%}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--yellow" data-percent="{{res[11]}}" style="width: {{res[11]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {%elif res[11] >= 100 %}
+                                      <div class="charts">
+                                          <div class="charts__chart chart--green" data-percent="{{res[11]}}" style="width: {{res[11]}}%"></div><!-- /.charts__chart -->
+                                      </div>
+                                      {% endif %}
+                                      
                                       <h6><b>     Total Rating: {{res[12]}}</h6>
                                       <h6><b>     Evolves Into: {{res[13]}}</h6><br/><br/><br/>
                                 </div>

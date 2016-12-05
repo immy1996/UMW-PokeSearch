@@ -39,7 +39,7 @@ $font-size-base: 10px;
 	span {
 		text-transform: uppercase;
 	}
-		-moz-transition: width 3000ms linear;
+		-webkit-transition: width 3000ms linear;
 }
 
 // vertical
@@ -53,9 +53,8 @@ $font-size-base: 10px;
 		content: attr(data-percent);
 		line-height: 30px;
 		@include percentage;
-			-moz-transition: width 3000ms linear;
 	}
-		-moz-transition: width 3000ms linear;
+		-webkit-transition: width 3000ms linear;
 
 }
 
@@ -73,7 +72,7 @@ $font-size-base: 10px;
 	margin: .5em 0;
 
 	> .charts__chart { height: 100%; }
-	-moz-transition: width 3000ms linear;
+	-webkit-transition: width 3000ms linear;
 
 }
 
@@ -141,7 +140,6 @@ $font-size-base: 10px;
 				}
 			}
 		}
-			-moz-transition: width 3000ms linear;
 	}
 }
 
@@ -161,7 +159,6 @@ $font-size-base: 10px;
 .charts--grouped {
 	[data-percent]::after {
 		display: none;
-			-moz-transition: width 3000ms linear;
 
 	}
 }

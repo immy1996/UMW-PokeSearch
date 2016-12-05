@@ -31,6 +31,9 @@
     <script src="js/jquery-2.1.4.min.js"></script>
     
     <style>
+        .charts__chart {
+            -transition: width 3000ms linear;
+        }
         .charts__chart:after {
             line-height: 15px;
         }
@@ -90,61 +93,20 @@
                         <ul class="nav navbar-nav navbar-right main-nav">
                             <li><a href="/">Home</a></li>
                             <li><a href="/about">About</a></li>
+                            {% if loggedIn == True %}
                             <li><a href="/chat">Chat</a></li>
-                            <li class="dropdown m-menu-fw"><a href="/directory" data-toggle="dropdown" class="dropdown-toggle">Directory
-                                <span><i class="fa fa-angle-down"></i></span></a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <div class="m-menu-content">
-                                            <ul class="col-sm-3">
-                                                <li class="dropdown-header">Widget Haeder</li>
-                                                <li><a href="#">Awesome Features</a></li>
-                                                <li><a href="#">Clean Interface</a></li>
-                                                <li><a href="#">Available Possibilities</a></li>
-                                                <li><a href="#">Responsive Design</a></li>
-                                                <li><a href="#">Pixel Perfect Graphics</a></li>
-                                            </ul>
-                                            <ul class="col-sm-3">
-                                                <li class="dropdown-header">Widget Haeder</li>
-                                                <li><a href="#">Awesome Features</a></li>
-                                                <li><a href="#">Clean Interface</a></li>
-                                                <li><a href="#">Available Possibilities</a></li>
-                                                <li><a href="#">Responsive Design</a></li>
-                                                <li><a href="#">Pixel Perfect Graphics</a></li>
-                                            </ul>
-                                            <ul class="col-sm-3">
-                                                <li class="dropdown-header">Widget Haeder</li>
-                                                <li><a href="#">Awesome Features</a></li>
-                                                <li><a href="#">Clean Interface</a></li>
-                                                <li><a href="#">Available Possibilities</a></li>
-                                                <li><a href="#">Responsive Design</a></li>
-                                                <li><a href="#">Pixel Perfect Graphics</a></li>
-                                            </ul>
-                                            <ul class="col-sm-3">
-                                                <li class="dropdown-header">Widget Haeder</li>
-                                                <li><a href="#">Awesome Features</a></li>
-                                                <li><a href="#">Clean Interface</a></li>
-                                                <li><a href="#">Available Possibilities</a></li>
-                                                <li><a href="#">Responsive Design</a></li>
-                                                <li><a href="#">Pixel Perfect Graphics</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
+                            <li>
+                                <h2>
+                                    <font color="white">User: {{user}}</font>
+                                </h2>
                             </li>
-                                <li><a href="/register">Register</a></li>
-                                {% if loggedIn %}
-                                <li>
-                                    <h2>
-                                        <font color="white">User: {{user}}</font>
-                                    </h2>
-                                </li>
-                                <form method="post" action="/logout">
-                                <button id="Logout" name="Logout" class="btn btn-primary">Logout</button> 
-                                </form>
-                                {% else %}
-                                <li><button type="submit" name="Login" value="Send" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log In</button></li>
-                                {% endif %}
+                            <form method="post" action="/logout">
+                            <button id="Logout" name="Logout" class="btn btn-primary">Logout</button> 
+                            </form>
+                            {% else %}
+                            <li><a href="/register">Register</a></li>
+                            <li><button type="submit" name="Login" value="Send" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log In</button></li>
+                            {% endif %}
                         </ul>
                     </div>
                     <!-- .navbar-collapse -->

@@ -1,6 +1,5 @@
 DROP DATABASE pokemon;
 CREATE DATABASE pokemon;
-CREATE EXTENSION pgcrypto;
 \c pokemon;
 DROP TABLE pokemon;
 DROP TABLE PossibleTypes;

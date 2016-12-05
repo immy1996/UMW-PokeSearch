@@ -7,7 +7,7 @@ poke.controller('searchController', function($scope){
     
     $scope.results = [{"name": "Clara", "weight": "50.0", "height": "48.1", "male" : "n", "female": "y"}];
     $scope.termToSearch = '';
-    $scope.messages = [{'text': 'Welcome to the chat!', 'name': 'bot'}]; 
+    $scope.messages = []; 
                 
             
     socket.on('message', function(msg) {
@@ -23,10 +23,17 @@ poke.controller('searchController', function($scope){
         $scope.text = '';
                 
     }
+    
     socket.on('results', function(res){
         console.log(res);
         console.log($scope.results);
         $scope.results.push(res);
+        $scope.$apply();
+    });
+    
+    socket.on('updatemessage', function(msgs){
+        console.log(msgs);
+        $scope.messages.push(res);
         $scope.$apply();
     });
     

@@ -29,6 +29,13 @@ body {
     color: #fff;
 }
 
+div.scroll {
+    background-color: #F8F8F8;
+    width: 400px;
+    height: 300px;
+    overflow: scroll;
+}
+
 /* --------------------------------------
 Global Typography
 ------------------------------------------*/

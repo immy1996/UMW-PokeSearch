@@ -28,38 +28,6 @@ def makeConnection():
 def on_identify(search):
     print(search)
 
-
-#This was from attempt at pop up search
-#@socketio.on('send', namespace = '/pokemonsearch')
-#def submit_search(search):
-#    session['searchedString'] = search
-#    session['resultsOfSearch'] = []
-#    connection = connectToDB()
-#    cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-#    rows = []
-#    query = cursor.mogrify("SELECT * from pokemon where name = %s", (search,))
-#    cursor.execute(query)
-#    rows = cursor.fetchall()
-#    print("query " + query)
-#    print(rows)
-#    if not rows:
-#        print("test")
-#        query = cursor.mogrify("Select name, weight, height, male, female from pokemon p1, types t1 where p1.id = t1.poke_ID and t1.type_ID = (SELECT ID from PossibleTypes where nameoftype = %s);", (search,))
-#        cursor.execute(query)
-#        rows = cursor.fetchall()
-#        print("query" + query)
-#        print(rows)
-#        if not rows:
-#           print("There are no rows!")
-#        else:
-#            session['resultsOfSearch'] = rows
-#            print('in redirect')
-#            return redirect(url_for('showResults'))
-#    else:
-#        session['resultsOfSearch'] = rows
-#        print('in redirect')
-#        return redirect(url_for('showResults'))
-
 @app.route('/',  methods=['GET', 'POST'])
 def mainIndex():
     connection = connectToDB()
@@ -322,10 +290,6 @@ def register2():
     results=[]
     connection = connectToDB()
     cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-
-        # if request.form['password']!=request.form['checkpassword']:
-        #     print("Password does not match. Please re-enter!")
-        # else:
         
     userTaken = False
     passCheck = False
@@ -420,5 +384,3 @@ def showResults():
 # start the server
 if __name__ == '__main__':
     socketio.run(app, host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)
-    #app.debug=True
-    #app.run(host='0.0.0.0', port=8080)

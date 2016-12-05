@@ -95,16 +95,20 @@
                             <li><a href="/about">About</a></li>
                             {% if loggedIn == True %}
                             <li><a href="/chat">Chat</a></li>
-                            <li>
-                                <h2>
-                                    <font color="white">User: {{user}}</font>
-                                </h2>
-                            </li>
-                            <form method="post" action="/logout">
-                            <button id="Logout" name="Logout" class="btn btn-primary">Logout</button> 
-                            </form>
                             {% else %}
+                            
+                            {% endif %}
+                            {% if loggedIn == False %}
                             <li><a href="/register">Register</a></li>
+                            {% endif %}
+                            {% if loggedIn %}
+                            <li><a>Welcome, {{user}}</a></li>
+                            <li>
+                            <form method="post" action="/logout">
+                                <button id="Logout" name="Logout" class="btn btn-primary">Logout</button>
+                            </form>
+                            </li>
+                            {% else %}
                             <li><button type="submit" name="Login" value="Send" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log In</button></li>
                             {% endif %}
                         </ul>

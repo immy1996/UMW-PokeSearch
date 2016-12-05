@@ -89,12 +89,10 @@ def mainIndex():
     	print number
     	for str in number:
     	    string = cursor.mogrify("SELECT name, image from pokemon where id = '%s';", (str,))
-            print string
             D = cursor.execute(string)
             d = cursor.fetchall()
             d = [item for sublist in d for item in sublist]
-            print d[0]
-    	    PokeBanner.append(d[0])
+    	    PokeBanner.append(d[1])
     	print "Poke Banner: "
     	print PokeBanner
     	for num in x:
@@ -265,12 +263,10 @@ def about():
     	print number
     	for str in number:
     	    string = cursor.mogrify("SELECT name, image from pokemon where id = '%s';", (str,))
-            print string
             D = cursor.execute(string)
             d = cursor.fetchall()
             d = [item for sublist in d for item in sublist]
-            print d[0]
-    	    PokeBanner.append(d[0])
+    	    PokeBanner.append(d[1])
     	print "Poke Banner: "
     	print PokeBanner
     	

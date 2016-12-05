@@ -187,8 +187,11 @@ def logout():
     session['username'] = ''
     session['loggedIn'] = False
     return redirect(url_for('mainIndex'))
-    
-    
+
+@socketio.on('chatupdate', namespace ='/pokemonsearch')
+def chatupdate(message):  
+    emit('updatemessage', message, broadcast = True)
+    ## added this thing here in server.py and added updatemessage in controller.js
 @app.route('/chat')
 def chat():
     connection = connectToDB()
@@ -214,6 +217,7 @@ def newMessage(message):
         tmp = {'text': message, 'name': session['username']}
         queryTerm = (session['username'], message)
         query = cursor.mogrify("INSERT into msgs (username, message) VALUES (%s,%s)", queryTerm)
+        print(query)
         cursor.execute(query)
         connection.commit()
         emit('message', tmp, broadcast = True)

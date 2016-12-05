@@ -516,3 +516,5 @@ GRANT ALL on PossibleTypes_id_seq to pokeuser;
 GRANT ALL on msgs to pokeuser;
 GRANT ALL on msgs_id_seq to pokeuser;
 GRANT select on typeEffective to pokeuser;
+
+CREATE EXTENSION pgcrypto;

@@ -101,6 +101,7 @@ def mainIndex():
     try:
     	numbers = random.sample(xrange(1,151), 6)
     	pokeList = []
+    	PokeBanner = []
     
     	for i in range(len(numbers)):
     	    pokestring = cursor.mogrify("SELECT * from pokemon where id = '%s';", (numbers[i], ))
@@ -110,11 +111,24 @@ def mainIndex():
     
     	types = ['bug', 'fighting', 'water','fire', 'poison', 'ground', 'rock', 'psychic', 'ghost', 'electric', 'steel', 'normal', 'dragon', 'ice', 'flying', 'grass']
     	x = range(0,15)
-    	print x
+    	#print x
     	random.shuffle(x)
-    	print x
+    	#print x
     	typeList = []
     	c = []
+    	number = random.sample(xrange(1,151), 6)       
+    	print "NUM is: "
+    	print number
+    	for str in number:
+    	    string = cursor.mogrify("SELECT name, image from pokemon where id = '%s';", (str,))
+            print string
+            D = cursor.execute(string)
+            d = cursor.fetchall()
+            d = [item for sublist in d for item in sublist]
+            print d[0]
+    	    PokeBanner.append(d[0])
+    	print "Poke Banner: "
+    	print PokeBanner
     	for num in x:
     	    string = cursor.mogrify("SELECT name from pokemon where id IN (SELECT poke_id from types where type_id = (SELECT id from PossibleTypes where nameoftype = %s));", (types[num],))
     	    pokeType = cursor.execute(string)
@@ -140,11 +154,12 @@ def mainIndex():
                 b.append(types[num])
                 typeList.append(b)
 
+
     except Exception as e:
         print(e)
 	print("Error executing select")
  
-    return render_template('home.html', pokeList=pokeList, typeList=typeList, types=types, loggedIn=session['loggedIn'], user=session['username'])
+    return render_template('home.html', PokeBanner=PokeBanner, pokeList=pokeList, typeList=typeList, types=types, loggedIn=session['loggedIn'], user=session['username'])
    
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -274,8 +289,29 @@ def about():
     else:
        session['loggedIn'] = True
        print('User: ' + session['username'])
+       
+    PokeBanner = []
+    try:   
+        number = random.sample(xrange(1,151), 6)       
+    	print "NUM is: "
+    	print number
+    	for str in number:
+    	    string = cursor.mogrify("SELECT name, image from pokemon where id = '%s';", (str,))
+            print string
+            D = cursor.execute(string)
+            d = cursor.fetchall()
+            d = [item for sublist in d for item in sublist]
+            print d[0]
+    	    PokeBanner.append(d[0])
+    	print "Poke Banner: "
+    	print PokeBanner
+    	
+    except Exception as e:
+        print(e)
+	print("Error executing select")
+ 
 
-    return render_template('about.html', loggedIn=session['loggedIn'], user=session['username'])
+    return render_template('about.html', PokeBanner=PokeBanner, loggedIn=session['loggedIn'], user=session['username'])
     
 @app.route('/register')
 def register():

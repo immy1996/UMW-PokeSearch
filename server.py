@@ -77,8 +77,8 @@ def mainIndex():
     	    A = cursor.fetchall()
     	    pokeList.append(A)
     
-    	types = ['bug', 'fighting', 'water','fire', 'poison', 'ground', 'rock', 'psychic', 'ghost', 'electric', 'steel', 'normal', 'dragon', 'ice', 'flying', 'grass']
-    	x = range(0,15)
+    	types = ['bug', 'fighting', 'water','fire', 'poison', 'ground', 'rock', 'psychic', 'ghost', 'electric', 'normal', 'dragon', 'ice', 'flying', 'grass']
+    	x = range(0,14)
     	#print x
     	random.shuffle(x)
     	#print x

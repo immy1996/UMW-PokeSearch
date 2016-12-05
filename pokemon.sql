@@ -5,6 +5,7 @@ DROP TABLE pokemon;
 DROP TABLE PossibleTypes;
 DROP TABLE users;
 DROP TABLE types;
+--DROP TABLE typeEffective;
 DROP TABLE msgs;
 -- Table structure for table pokemon
 --
@@ -209,7 +210,6 @@ INSERT INTO PossibleTypes (nameoftype) VALUES ('poison');
 INSERT INTO PossibleTypes (nameoftype) VALUES ('psychic');
 INSERT INTO PossibleTypes (nameoftype) VALUES ('rock');
 INSERT INTO PossibleTypes (nameoftype) VALUES ('water');
-INSERT INTO PossibleTypes (nameoftype) VALUES ('steel');
 
 CREATE TABLE IF NOT EXISTS types (
   poke_ID INT NOT NULL,
@@ -339,9 +339,7 @@ INSERT INTO types (poke_ID, type_ID) VALUES (79, 13);
 INSERT INTO types (poke_ID, type_ID) VALUES (80, 15);
 INSERT INTO types (poke_ID, type_ID) VALUES (80, 13);
 INSERT INTO types (poke_ID, type_ID) VALUES (81, 10);
-INSERT INTO types (poke_ID, type_ID) VALUES (81, 16);
 INSERT INTO types (poke_ID, type_ID) VALUES (82, 10);
-INSERT INTO types (poke_ID, type_ID) VALUES (82, 16);
 INSERT INTO types (poke_ID, type_ID) VALUES (83, 11);
 INSERT INTO types (poke_ID, type_ID) VALUES (83, 6);
 INSERT INTO types (poke_ID, type_ID) VALUES (84, 11);
@@ -453,6 +451,66 @@ CREATE TABLE IF NOT EXISTS msgs (
   message varchar(5000) NOT NULL,
   PRIMARY KEY (id)
 );
+
+
+
+--CREATE TABLE IF NOT EXISTS typeEffective (
+--  id INT NOT NULL,
+--  other_id INT NOT NULL,
+--  FOREIGN KEY(id)
+--  REFERENCES PossibleTypes(ID),
+--  FOREIGN KEY(other_id)
+--  REFERENCES PossibleTypes(ID)
+--);
+
+
+--INSERT INTO typeEffective (id, other_id) VALUES (1,7);
+--INSERT INTO typeEffective (id, other_id) VALUES (1,13);
+--INSERT INTO typeEffective (id, other_id) VALUES (2,2);
+--INSERT INTO typeEffective (id, other_id) VALUES (3,7);
+--INSERT INTO typeEffective (id, other_id) VALUES (3,9);
+--INSERT INTO typeEffective (id, other_id) VALUES (3,6);
+--INSERT INTO typeEffective (id, other_id) VALUES (3,2);
+--INSERT INTO typeEffective (id, other_id) VALUES (4,11);
+--INSERT INTO typeEffective (id, other_id) VALUES (4,3);
+--INSERT INTO typeEffective (id, other_id) VALUES (4,14);
+--INSERT INTO typeEffective (id, other_id) VALUES (4,16);
+--INSERT INTO typeEffective (id, other_id) VALUES (5,7);
+--INSERT INTO typeEffective (id, other_id) VALUES (5,3);
+--INSERT INTO typeEffective (id, other_id) VALUES (5,1);
+--INSERT INTO typeEffective (id, other_id) VALUES (5,16);
+--INSERT INTO typeEffective (id, other_id) VALUES (6,1);
+--INSERT INTO typeEffective (id, other_id) VALUES (6,7);
+--INSERT INTO typeEffective (id, other_id) VALUES (6,4);
+--INSERT INTO typeEffective (id, other_id) VALUES (7,15);
+--INSERT INTO typeEffective (id, other_id) VALUES (7,9);
+--INSERT INTO typeEffective (id, other_id) VALUES (7,6);
+--INSERT INTO typeEffective (id, other_id) VALUES (8,8);
+--INSERT INTO typeEffective (id, other_id) VALUES (8,13);
+--INSERT INTO typeEffective (id, other_id) VALUES (9,10);
+--INSERT INTO typeEffective (id, other_id) VALUES (9,5);
+--INSERT INTO typeEffective (id, other_id) VALUES (9,12);
+--INSERT INTO typeEffective (id, other_id) VALUES (9,14);
+--INSERT INTO typeEffective (id, other_id) VALUES (9,16);
+--INSERT INTO typeEffective (id, other_id) VALUES (10,15);
+--INSERT INTO typeEffective (id, other_id) VALUES (10,6);
+--INSERT INTO typeEffective (id, other_id) VALUES (12,7);
+--INSERT INTO typeEffective (id, other_id) VALUES (13,12);
+--INSERT INTO typeEffective (id, other_id) VALUES (13,4);
+--INSERT INTO typeEffective (id, other_id) VALUES (14,3);
+--INSERT INTO typeEffective (id, other_id) VALUES (14,5);
+--INSERT INTO typeEffective (id, other_id) VALUES (14,6);
+--INSERT INTO typeEffective (id, other_id) VALUES (14,1);
+--INSERT INTO typeEffective (id, other_id) VALUES (15,9);
+--INSERT INTO typeEffective (id, other_id) VALUES (15,14);
+--INSERT INTO typeEffective (id, other_id) VALUES (15,5);
+--INSERT INTO typeEffective (id, other_id) VALUES (16,3);
+--INSERT INTO typeEffective (id, other_id) VALUES (16,14);
+
+
+
+
+
 
 
 GRANT ALL on users to pokeuser;

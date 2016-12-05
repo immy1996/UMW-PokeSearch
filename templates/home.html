@@ -202,7 +202,7 @@
             </section>
             <!-- .x-services -->
 
-            <section class="team ptb-100">
+            <section class="x-services ptb-100 gray-bg">
                 <section class="section-title">
                     <div class="container text-center">
                         <h2>Types</h2>
@@ -211,19 +211,19 @@
                 </section>
                 <div class="container">
                     <div class="row">
-                        {% for i in typeList %}
+                        {%for i in typeList %}
 				        <div class="col-sm-4">
-    		    		    <figure class="thumbnail">
-	        	    			<a href="#"><img src=img/{{i[2]}} class="img-responsive" alt="Image"></a>
-					            <figcaption class="caption text-center">
-        					        <h3> {{i[1]}} -
-		        		        		<small>{{i[15]}}</small>
-				            	    </h3>
-			        		    </figcaption>
-				            </figure>
+    		    		    <div class="thumbnail clearfix">
+    		    		        <div id = 'header'>
+    		    		            <b><big>{{i[1]}} - {{i[15]}}</big></b> 
+    		    		        </div>
+    		    		        <div id = "left">
+    	        	    			<img src=img/{{i[2]}} class="img-responsive" alt="Image">
+    		    		        </div>
+
+				            </div>
 				        </div>
 				        <!-- /.col-sm-4 <-->
-				        
 				        {% endfor%}
                      <!-- /.row -->
                     </div>

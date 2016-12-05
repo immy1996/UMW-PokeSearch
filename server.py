@@ -349,8 +349,7 @@ def showResults():
     query = cursor.mogrify("SELECT name, image, weight, height, male, female, hp, attack, defense, sp_attack, sp_defense, speed, total_rating, evolves_into from pokemon where name = %s", (session['searchedString'],))
     cursor.execute(query)
     rows = cursor.fetchall()
-    print("query " + query)
-    print(rows)
+    print rows
     if not rows:
         print("test")
         
@@ -360,16 +359,27 @@ def showResults():
         except:
             print('Cannot capitalize')
         query = cursor.mogrify("Select name, image, weight, height, male, female, hp, attack, defense, sp_attack, sp_defense, speed, total_rating, evolves_into from pokemon p1, types t1 where p1.id = t1.poke_ID and t1.type_ID = (SELECT ID from PossibleTypes where nameoftype = %s);", (session['searchedString'],))
-        print("query: " + query)
         cursor.execute(query)
         rows = cursor.fetchall()
         if not rows:
            print("There are no rows!")
         else:
             session['resultsOfSearch'] = rows
+            str = cursor.mogrify("SELECT nameoftype from PossibleTypes where ID IN (SELECT other_id from typeEffective where id IN (SELECT ID from PossibleTypes where nameoftype = %s));", (session['searchedString'],))
+            cursor.execute(str)
+            allTypeEffective = cursor.fetchall()
+            typeEffective = [item for sublist in allTypeEffective for item in sublist]
+            for i in range(len(typeEffective)):
+                try: 
+                    typeEffective[i] = typeEffective[i].capitalize()
+                except:
+                    print('Cannot capitalize')
+                    print(i)
+            print(typeEffective)
+        
     else:
         session['resultsOfSearch'] = rows
-        string = cursor.mogrify("SELECT nameoftype from PossibleTypes where ID IN (SELECT other_id from typeEffective where id IN (SELECT type_ID from types where poke_ID IN (SELECT id from pokemon where name = %s)));", (session['searchedString'],))
+        string = cursor.mogrify("SELECT nameoftype from PossibleTypes where ID IN (SELECT other_id from typeEffective where id IN (SELECT type_ID from types where poke_ID IN (SELECT ID from pokemon where name = %s)));", (session['searchedString'],))
         cursor.execute(string)
         typeEffective = cursor.fetchall()
         typeEffective = [item for sublist in typeEffective for item in sublist]
@@ -379,7 +389,7 @@ def showResults():
             except:
                 print('Cannot capitalize')
                 print(i)
-            
+        print(typeEffective)
         
     return render_template('searchResults.html',
                             typeEffective=typeEffective,

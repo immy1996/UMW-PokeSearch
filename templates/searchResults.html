@@ -29,9 +29,11 @@
                                       <h6><b>     Male: {{res[4]}}</b></h6>
                                       <h6><b>     Female: {{res[5]}}</b></h6>
                                       <h6><b>     Most Effective Against:  </b></h6>
+                                      <ul style="list-style-type:disc">
                                       {%for i in typeEffective%}
-                                      <h6><b><i>     {{i}}  </i></b></h6>
+                                      <h6><li> {{i}} </li></h6>
                                       {%endfor%}
+                                      </ul>
                                       <h6><b>     HP: </b></h6>
                                      {%if res[6] >= 0 and res[6] <= 69 %}
                                       <div class="charts">

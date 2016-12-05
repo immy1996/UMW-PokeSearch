@@ -338,6 +338,7 @@ def showResults():
     connection = connectToDB()
     cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
     rows = []
+    typeEffective = []
     #format the string so that it matches the format of names in the db
     try: 
         session['searchedString'] = session['searchedString'].capitalize()
@@ -362,15 +363,26 @@ def showResults():
         print("query: " + query)
         cursor.execute(query)
         rows = cursor.fetchall()
-        print("query: " + query)
-        print(rows)
         if not rows:
            print("There are no rows!")
         else:
             session['resultsOfSearch'] = rows
     else:
         session['resultsOfSearch'] = rows
-    return render_template('searchResults.html', 
+        string = cursor.mogrify("SELECT nameoftype from PossibleTypes where ID IN (SELECT other_id from typeEffective where id IN (SELECT type_ID from types where poke_ID IN (SELECT id from pokemon where name = %s)));", (session['searchedString'],))
+        cursor.execute(string)
+        typeEffective = cursor.fetchall()
+        typeEffective = [item for sublist in typeEffective for item in sublist]
+        for i in range(len(typeEffective)):
+            try: 
+                typeEffective[i] = typeEffective[i].capitalize()
+            except:
+                print('Cannot capitalize')
+                print(i)
+            
+        
+    return render_template('searchResults.html',
+                            typeEffective=typeEffective,
                             loggedIn=session['loggedIn'], 
                             user=session['username'], 
                             resultsOfSearch = session['resultsOfSearch'],

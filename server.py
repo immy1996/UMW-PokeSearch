@@ -273,7 +273,6 @@ def about():
     except Exception as e:
         print(e)
 	print("Error executing select")
- 
 
     return render_template('about.html', PokeBanner=PokeBanner, loggedIn=session['loggedIn'], user=session['username'])
     

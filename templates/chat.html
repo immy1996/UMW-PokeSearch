@@ -4,11 +4,18 @@
             <section class="single-page-title">
                 
                 </section>
+                <p>
+                    &nbsp;
+                    &nbsp;
+                </p>
     <div class="container" ng-controller="searchController">
             <div id="searchResults">
               <h1>Chat</h1>
               <p>Live chat the live feed</p>
               <div class="scroll" id="msgpane">
+                  {% for m in messages %}
+                      <p>{{m['name']}}: {{m['text']}}</p>
+                  {% endfor %}
                   <p ng-repeat="msg in messages">
                   <b ng-bind="msg.name"></b>:&nbsp;
                   <span ng-bind="msg.text"></span>
@@ -17,7 +24,7 @@
                 </p>
               </div>
             </div>
-            <input type="text" ng-model="text" size="30" placeholder=".." />
+            <input type="text" ng-model="text" size="47" placeholder="Lets Talk Pokemon!" />
             <button ng-click="sendmsg()">Send</button>
     </div>        
             <!-- .x-services -->

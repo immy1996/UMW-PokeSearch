@@ -80,7 +80,7 @@ def mainIndex():
     	types = ['bug', 'fighting', 'water','fire', 'poison', 'ground', 'rock', 'psychic', 'ghost', 'electric', 'normal', 'dragon', 'ice', 'flying', 'grass']
     	x = range(0,14)
     	#print x
-    	random.shuffle(x)
+    	#random.shuffle(x)
     	#print x
     	typeList = []
     	c = []
